@@ -1,2 +1,2 @@
-DROP DATABASE some_app_name;
-CREATE DATABASE some_app_name;
+DROP DATABASE nyc_safety;
+CREATE DATABASE nyc_safety;
