@@ -17,6 +17,7 @@ class LandingPageMap extends Component {
 
         this.state = {
             incidents: [],
+            popupInfo: null,
             viewport: {
                 width: 1200,
                 height: 800,
@@ -24,8 +25,7 @@ class LandingPageMap extends Component {
                 longitude: -73.9711897,
                 zoom: 11,
                 pitch: 45,
-            },
-            popupInfo: null,
+            }
         };
     }
 
@@ -41,47 +41,50 @@ class LandingPageMap extends Component {
             });
     }
 
-    _renderMarker(incident, index) {
+    _renderMarker = (incident, index) => {
         const lat = parseFloat(incident.location.coordinates[1]);
         const lng = parseFloat(incident.location.coordinates[0]);
+
+        // const incidentData = incident;
+        // console.log(incidentData);
 
         return (
             <Marker key={index}
                 longitude={lng}
                 latitude={lat}
                 captureClick={true}>
-                <MarkerPin size={20} onClick={() => this.setState({ popupInfo: incident })} />
+                <MarkerPin size={20} onClick={(prevState) => this.setState({popupInfo: incident})} />
             </Marker>
 
         );
     }
 
-    _renderPopup() {
+    _renderPopup = () => {
 
         // const lat = parseFloat(incident.location.coordinates[1]);
         // const lng = parseFloat(incident.location.coordinates[0]);
 
-        const { popupInfo } = this.state;
+        const {popupInfo} = this.state;
 
         return popupInfo && (
             <Popup
                 // key={i}
                 tipSize={5}
                 anchor="bottom"
-                longitude={popupInfo.longitude}
-                latitude={popupInfo.latitude}
+                longitude={parseFloat(popupInfo.longitude)}
+                latitude={parseFloat(popupInfo.latitude)}
                 closeButton={true}
                 captureClick={true}
                 onClose={() => this.setState({ popupInfo: null })}
                 offset={25} >
-                <div>{`${popupInfo.latitude}`}</div>
+                <div>{`${popupInfo.borough}`}</div>
             </Popup>
         );
     }
 
 
-    render() {
-        const { viewport } = this.state;
+    render = () => {
+        const {viewport} = this.state;
         const incidents = this.state.incidents;
         return (
             <div>
