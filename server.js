@@ -1,4 +1,5 @@
 const express = require('express');
+const {User, Incident, Character} = require('./models');
 const bodyParser = require('body-parser');
 const PORT = process.env.PORT || 5678;
 

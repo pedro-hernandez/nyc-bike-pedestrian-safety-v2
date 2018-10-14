@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize');
 
-const sequelize = new Sequelize(process.env.DATABASE_URL || 'postgres://localhost:5432/villains_db', {
+const sequelize = new Sequelize(process.env.DATABASE_URL || 'postgres://localhost:5432/nyc_safety', {
   database: 'nyc_safety',
   dialect: 'postgres'
 });
@@ -20,6 +20,10 @@ const User = sequelize.define('user', {
 });
 
 const Incident = sequelize.define('incident', {
+  apiId: {
+    type: Sequelize.INTEGER,
+    allowNull: false
+  },
   borough: {
     type: Sequelize.TEXT,
     allowNull: false
@@ -70,12 +74,10 @@ const Incident = sequelize.define('incident', {
   }
 });
 
-const UserIncident = sequelize.define('userCharacter');
+const UserIncident = sequelize.define('userIncident');
 
 Incident.belongsToMany(User, { through: UserIncident });
-User.belongsToMany(Incident, { through: UserIncident })
-
-
+User.belongsToMany(Incident, { through: UserIncident });
 
 module.exports = {
   User,
