@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
-import ReactMapGL, { Marker } from 'react-map-gl';
+import ReactMapGL, { Marker, Popup } from 'react-map-gl';
+import MarkerPin from '../MarkerPin';
 import './style.css';
 
 
 const mapboxToken = 'pk.eyJ1IjoicGhlcm4iLCJhIjoiY2psc2JlN3lnMDBiaTNwcGhyaWlpa2VldCJ9.665bVWc7nQRX882OxrIaNg';
 
 // 20 most recent incidents from the NYC Open Data / NYPD Motor Vehicle Collisions API
-const recentIncidents = 'https://data.cityofnewyork.us/resource/qiz3-axqb.json?$$app_token=vsw3d1IWA34wIGA56fGGb4DIc&$limit=20&$where=latitude%20IS%20NOT%20NULL';
+const recentIncidents = 'https://data.cityofnewyork.us/resource/qiz3-axqb.json?$$app_token=vsw3d1IWA34wIGA56fGGb4DIc&$limit=10&$where=latitude%20IS%20NOT%20NULL';
 
 
 class LandingPageMap extends Component {
@@ -17,36 +18,65 @@ class LandingPageMap extends Component {
         this.state = {
             incidents: [],
             viewport: {
-                width: 800,
-                height: 400,
-                latitude: 40.7398476,
-                longitude: -73.9924008,
-                zoom: 9,
-                pitch: 45
-            }
-        }
+                width: 1200,
+                height: 800,
+                latitude: 40.7454474,
+                longitude: -73.9711897,
+                zoom: 11,
+                pitch: 45,
+            },
+            popupInfo: null,
+        };
     }
 
     componentDidMount() {
 
         // collects incidident data from API
         fetch(recentIncidents)
-        .then(response => response.json())
-        .then(incidents => {
-            this.setState({
-                incidents: incidents
+            .then(response => response.json())
+            .then(incidents => {
+                this.setState({
+                    incidents: incidents
+                });
             });
-        });
     }
 
-    _renderMarker(incident, i) {
+    _renderMarker(incident, index) {
         const lat = parseFloat(incident.location.coordinates[1]);
         const lng = parseFloat(incident.location.coordinates[0]);
-        const date = incident.date;
 
         return (
-            <Marker key={i} longitude={lng} latitude={lat}/>
-        )
+            <Marker key={index}
+                longitude={lng}
+                latitude={lat}
+                captureClick={true}>
+                <MarkerPin size={20} onClick={() => this.setState({ popupInfo: incident })} />
+            </Marker>
+
+        );
+    }
+
+    _renderPopup() {
+
+        // const lat = parseFloat(incident.location.coordinates[1]);
+        // const lng = parseFloat(incident.location.coordinates[0]);
+
+        const { popupInfo } = this.state;
+
+        return popupInfo && (
+            <Popup
+                // key={i}
+                tipSize={5}
+                anchor="bottom"
+                longitude={popupInfo.longitude}
+                latitude={popupInfo.latitude}
+                closeButton={true}
+                captureClick={true}
+                onClose={() => this.setState({ popupInfo: null })}
+                offset={25} >
+                <div>{`${popupInfo.latitude}`}</div>
+            </Popup>
+        );
     }
 
 
@@ -56,12 +86,12 @@ class LandingPageMap extends Component {
         return (
             <div>
                 <ReactMapGL className="map"
-                {...viewport}
-                mapStyle="mapbox://styles/mapbox/light-v9"
-                // onViewportChange={(viewport) => this.setState({viewport})}
-                mapboxApiAccessToken={mapboxToken}
+                    {...viewport}
+                    mapStyle="mapbox://styles/mapbox/light-v9"
+                    mapboxApiAccessToken={mapboxToken}
                 >
-                { incidents.map(this._renderMarker) }
+                    {incidents.map(this._renderMarker)}
+                    {this._renderPopup()}
                 </ReactMapGL>
             </div>
         );
