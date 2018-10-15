@@ -14,6 +14,7 @@ const User = sequelize.define('user', {
     type: Sequelize.TEXT,
     allowNull: false
   },
+  email: Sequelize.TEXT,
   incidentsList: {
     type: Sequelize.ARRAY(Sequelize.INTEGER)
   }

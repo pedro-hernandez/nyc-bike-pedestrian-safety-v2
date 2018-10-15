@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import ReactMapGL, { Marker, Popup } from 'react-map-gl';
 import MarkerPin from '../MarkerPin';
+import BookmarkButton from '../BookmarkButton';
 import './style.css';
+import { runInThisContext } from 'vm';
 
 
 const mapboxToken = 'pk.eyJ1IjoicGhlcm4iLCJhIjoiY2psc2JlN3lnMDBiaTNwcGhyaWlpa2VldCJ9.665bVWc7nQRX882OxrIaNg';
@@ -18,6 +20,7 @@ class LandingPageMap extends Component {
         this.state = {
             incidents: [],
             popupInfo: null,
+            bookmarks: [],
             viewport: {
                 width: 800,
                 height: 600,
@@ -77,6 +80,10 @@ class LandingPageMap extends Component {
                 <br />
                 {`People killed: ${popupInfo.number_of_persons_killed}`}
                 </div>
+                <BookmarkButton 
+                apiId={popupInfo.unique_key}
+                bookmarks={this.state.bookmarks}
+                 />
             </Popup>
         );
     }
