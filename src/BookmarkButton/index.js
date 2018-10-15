@@ -8,15 +8,16 @@ class BookmarkButton extends Component {
         this.props.toggleDetails(this.props.apiId);
       }
     
-      favoriteCharacter = () => {
+      bookmarkIncident = () => {
         this.props.bookmarkIncident(this.props.apiId);
       }
     
-      removeCharacter = () => {
+      removeIncident = () => {
         this.props.removeIncident(this.props.apiId);
       }
 
     render() {
+        console.log(this.props.apiId);
         return (
             <div className="map-buttons">
                 {!this.props.bookmarks.includes(this.props.apiId) ?

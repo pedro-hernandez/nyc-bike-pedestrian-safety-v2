@@ -12,15 +12,13 @@ const mapboxToken = 'pk.eyJ1IjoicGhlcm4iLCJhIjoiY2psc2JlN3lnMDBiaTNwcGhyaWlpa2Vl
 const recentIncidents = 'https://data.cityofnewyork.us/resource/qiz3-axqb.json?$$app_token=vsw3d1IWA34wIGA56fGGb4DIc&$limit=20&$where=latitude%20IS%20NOT%20NULL';
 
 
-class LandingPageMap extends Component {
+class UserMap extends Component {
 
     constructor(props) {
         super(props);
 
         this.state = {
-            incidents: [],
             popupInfo: null,
-            bookmarks: [],
             viewport: {
                 width: 800,
                 height: 600,
@@ -49,11 +47,14 @@ class LandingPageMap extends Component {
         const lng = parseFloat(incident.location.coordinates[0]);
 
         return (
-            <Marker key={index}
+            <Marker 
+                key={index}
                 longitude={lng}
                 latitude={lat}
                 captureClick={true}>
-                <MarkerPin size={20} onClick={(prevState) => this.setState({popupInfo: incident})} />
+                <MarkerPin 
+                size={20} 
+                onClick={(prevState) => this.setState({popupInfo: incident})} />
             </Marker>
 
         );
@@ -83,8 +84,6 @@ class LandingPageMap extends Component {
                 <BookmarkButton 
                 apiId={popupInfo.unique_key}
                 bookmarks={this.state.bookmarks}
-                bookmarkIncident={this.props.bookmarkIncident}
-                removeIncident={this.props.removeIncident}
                  />
             </Popup>
         );
@@ -110,4 +109,4 @@ class LandingPageMap extends Component {
     }
 }
 
-export default LandingPageMap;
+export default UserMap;

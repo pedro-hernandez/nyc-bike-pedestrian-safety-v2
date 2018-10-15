@@ -13,6 +13,7 @@ class App extends Component {
       username: "",
       password: "",
       isLoggedIn: false,
+      bookmarks: [],
     }
   }
 
@@ -40,7 +41,7 @@ class App extends Component {
 
   onLogout = () => {
     localStorage.clear();
-    
+
     this.setState({
       isLoggedIn: false,
     })
@@ -48,19 +49,57 @@ class App extends Component {
 
   fetchUser = async () => {
     const response = await fetch('/api/current-user', {
-        headers: {
-            'jwt-token': localStorage.getItem('user-jwt')
-        }
+      headers: {
+        'jwt-token': localStorage.getItem('user-jwt')
+      }
     });
     const user = await response.json();
     this.setState({
-        user: user
+      user: user
     });
+  }
+
+  bookmarkIncident = async ApiId => {
+    await fetch(`/api/current-user/`, {
+        method: 'PUT',
+        body: JSON.stringify({
+            bookmarks: ApiId
+        }),
+        headers: {
+            'Content-Type': 'application/json',
+            'jwt-token': localStorage.getItem('user-jwt')
+        }
+    });
+    await this.fetchUser();
+
+    this.setState({
+        bookmarks: this.state.user.bookmarks
+    });
+}
+
+removeIncident = async ApiId => {
+    await fetch(`/api/delete-item/`, {
+        method: 'PUT',
+        body: JSON.stringify({
+            bookmarks: ApiId
+        }),
+        headers: {
+            'Content-Type': 'application/json',
+            'jwt-token': localStorage.getItem('user-jwt')
+        }
+    });
+    await this.fetchUser();
+
+    this.setState({
+        favorites: this.state.user.bookmarks
+    });
+
+    console.log(this.state.bookmarks);
 }
 
   render() {
     return <div className="App">
-    <Router>
+      <Router>
         <div className="app">
           {!this.state.isLoggedIn ?
             <Route
@@ -82,6 +121,8 @@ class App extends Component {
                   <LandingPageMap
                     {...props}
                     onLogout={this.onLogout}
+                    bookmarkIncident={this.bookmarkIncident}
+                    removeIncident={this.removeIncident}
                   />
                 }
               />
@@ -89,7 +130,7 @@ class App extends Component {
           }
         </div>
       </Router>
-    {/* <LandingPageMap /> */}
+      {/* <LandingPageMap /> */}
     </div>
   }
 }
