@@ -7,7 +7,7 @@ import './style.css';
 const mapboxToken = 'pk.eyJ1IjoicGhlcm4iLCJhIjoiY2psc2JlN3lnMDBiaTNwcGhyaWlpa2VldCJ9.665bVWc7nQRX882OxrIaNg';
 
 // 20 most recent incidents from the NYC Open Data / NYPD Motor Vehicle Collisions API
-const recentIncidents = 'https://data.cityofnewyork.us/resource/qiz3-axqb.json?$$app_token=vsw3d1IWA34wIGA56fGGb4DIc&$limit=10&$where=latitude%20IS%20NOT%20NULL';
+const recentIncidents = 'https://data.cityofnewyork.us/resource/qiz3-axqb.json?$$app_token=vsw3d1IWA34wIGA56fGGb4DIc&$limit=20&$where=latitude%20IS%20NOT%20NULL';
 
 
 class LandingPageMap extends Component {
@@ -19,8 +19,8 @@ class LandingPageMap extends Component {
             incidents: [],
             popupInfo: null,
             viewport: {
-                width: 1200,
-                height: 800,
+                width: 800,
+                height: 600,
                 latitude: 40.7454474,
                 longitude: -73.9711897,
                 zoom: 11,
@@ -29,7 +29,7 @@ class LandingPageMap extends Component {
         };
     }
 
-    componentDidMount() {
+    componentDidMount = () => {
 
         // collects incidident data from API
         fetch(recentIncidents)
@@ -45,9 +45,6 @@ class LandingPageMap extends Component {
         const lat = parseFloat(incident.location.coordinates[1]);
         const lng = parseFloat(incident.location.coordinates[0]);
 
-        // const incidentData = incident;
-        // console.log(incidentData);
-
         return (
             <Marker key={index}
                 longitude={lng}
@@ -59,25 +56,27 @@ class LandingPageMap extends Component {
         );
     }
 
-    _renderPopup = () => {
+    // mapbox popups adapted from react-map-gl docs
+    // https://github.com/uber/react-map-gl/tree/3.2-release/examples/controls
 
-        // const lat = parseFloat(incident.location.coordinates[1]);
-        // const lng = parseFloat(incident.location.coordinates[0]);
+    _renderPopup = () => {
 
         const {popupInfo} = this.state;
 
         return popupInfo && (
             <Popup
-                // key={i}
                 tipSize={5}
-                anchor="bottom"
+                anchor="top"
                 longitude={parseFloat(popupInfo.longitude)}
                 latitude={parseFloat(popupInfo.latitude)}
                 closeButton={true}
                 captureClick={true}
-                onClose={() => this.setState({ popupInfo: null })}
-                offset={25} >
-                <div>{`${popupInfo.borough}`}</div>
+                onClose={() => this.setState({ popupInfo: null })}>
+                <div className="popup-container">
+                {`People injured: ${popupInfo.number_of_persons_injured}`}
+                <br />
+                {`People killed: ${popupInfo.number_of_persons_killed}`}
+                </div>
             </Popup>
         );
     }
@@ -90,7 +89,7 @@ class LandingPageMap extends Component {
             <div>
                 <ReactMapGL className="map"
                     {...viewport}
-                    mapStyle="mapbox://styles/mapbox/light-v9"
+                    mapStyle="mapbox://styles/mapbox/dark-v9"
                     mapboxApiAccessToken={mapboxToken}
                 >
                     {incidents.map(this._renderMarker)}

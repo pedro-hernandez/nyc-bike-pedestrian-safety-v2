@@ -1,9 +1,16 @@
 const express = require('express');
 const {User, Incident, Character} = require('./models');
 const bodyParser = require('body-parser');
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 const PORT = process.env.PORT || 5678;
+const path = require('path');
+
 
 const app = express();
+
+// Static hosting for built files
+app.use("/", express.static("./build/"));
 
 const jwtSecret = 'xyz90785563'
 

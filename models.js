@@ -20,6 +20,8 @@ const User = sequelize.define('user', {
 });
 
 const Incident = sequelize.define('incident', {
+// apiId taken from NYC Open Data - NYPD API's unique_key
+// allows users to bookmark incidents
   apiId: {
     type: Sequelize.INTEGER,
     allowNull: false
