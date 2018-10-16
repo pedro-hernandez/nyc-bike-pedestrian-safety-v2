@@ -3,13 +3,13 @@ import ReactMapGL, { Marker, Popup } from 'react-map-gl';
 import MarkerPin from '../MarkerPin';
 import BookmarkButton from '../BookmarkButton';
 import './style.css';
-import { runInThisContext } from 'vm';
+// import { runInThisContext } from 'vm';
 
 
-const mapboxToken = 'pk.eyJ1IjoicGhlcm4iLCJhIjoiY2psc2JlN3lnMDBiaTNwcGhyaWlpa2VldCJ9.665bVWc7nQRX882OxrIaNg';
+// const mapboxToken = 'pk.eyJ1IjoicGhlcm4iLCJhIjoiY2psc2JlN3lnMDBiaTNwcGhyaWlpa2VldCJ9.665bVWc7nQRX882OxrIaNg';
 
 // 20 most recent incidents from the NYC Open Data / NYPD Motor Vehicle Collisions API
-const recentIncidents = 'https://data.cityofnewyork.us/resource/qiz3-axqb.json?$$app_token=vsw3d1IWA34wIGA56fGGb4DIc&$limit=20&$where=latitude%20IS%20NOT%20NULL';
+const recentIncidents = 'https://data.cityofnewyork.us/resource/qiz3-axqb.json?$$app_token=vsw3d1IWA34wIGA56fGGb4DIc&$limit=30&$where=latitude%20IS%20NOT%20NULL';
 
 
 class LandingPageMap extends Component {
@@ -20,7 +20,6 @@ class LandingPageMap extends Component {
         this.state = {
             incidents: [],
             popupInfo: null,
-            bookmarks: [],
             viewport: {
                 width: 800,
                 height: 600,
@@ -82,7 +81,8 @@ class LandingPageMap extends Component {
                 </div>
                 <BookmarkButton 
                 apiId={popupInfo.unique_key}
-                bookmarks={this.state.bookmarks}
+                bookmarks={this.props.bookmarks}
+                toggleDetails={this.props.toggleDetails}
                 bookmarkIncident={this.props.bookmarkIncident}
                 removeIncident={this.props.removeIncident}
                  />
@@ -100,7 +100,7 @@ class LandingPageMap extends Component {
                 <ReactMapGL className="map"
                     {...viewport}
                     mapStyle="mapbox://styles/mapbox/dark-v9"
-                    mapboxApiAccessToken={mapboxToken}
+                    mapboxApiAccessToken={this.props.mapboxToken}
                 >
                     {incidents.map(this._renderMarker)}
                     {this._renderPopup()}

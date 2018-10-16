@@ -15,7 +15,7 @@ const User = sequelize.define('user', {
     allowNull: false
   },
   email: Sequelize.TEXT,
-  incidentsList: {
+  bookmarks: {
     type: Sequelize.ARRAY(Sequelize.INTEGER)
   }
 });

@@ -16,6 +16,7 @@ const jwtSecret = 'xyz90785563'
 
 app.use(bodyParser.json());
 
+// user registration
 app.post('/api/register', async (request, response) => {
   if (!request.body.username || !request.body.password) {
     response.status(404).send("JSON body must include username, password");
@@ -46,6 +47,7 @@ app.post('/api/register', async (request, response) => {
   response.status(200).json(token);
 });
 
+// user login
 app.post('/api/login', async (request, response) => {
   const { username, password } = request.body;
   if (!username || !password) {
@@ -80,6 +82,7 @@ app.post('/api/login', async (request, response) => {
   }
 });
 
+// access current user
 app.get('/api/current-user', async (request, response) => {
   
   const token = request.headers['jwt-token'];
@@ -97,43 +100,64 @@ app.get('/api/current-user', async (request, response) => {
   response.status(200).json(findId);
 });
 
-// app.put('/api/current-user', async (request, response) => {
-//   const token = request.headers['jwt-token'];
-
-//   const verification = jwt.verify(token, jwtSecret);
+// access user's bookmarks
+// app.get('/api/bookmarks', async (request, response) => {
   
-//   const user = await User.findOne({
-//     where: {
-//       id: verification.userId
-//     }
-//   });
-//   if (user.favoritesList !== null) {
-//     user.favoritesList = user.favoritesList.concat(request.body.favoritesList);
-//   } else {
-//     user.favoritesList = [request.body.favoritesList];
+//   const token = request.headers['jwt-token'];
+//   let verification;
+//   try{
+//     verification = jwt.verify(token, jwtSecret);
+//   }catch(e) {
+//     console.log(e);
 //   }
-  
-//   await user.save();
-//   response.sendStatus(204);
-// });
-
-// app.put('/api/delete-item/', async (request, response) => {
-//   const token = request.headers['jwt-token'];
-
-//   const verification = jwt.verify(token, jwtSecret);
-  
-//   const user = await User.findOne({
+//   const bookmarks = await User.findOne({
 //     where: {
 //       id: verification.userId
 //     }
 //   });
-//   user.favoritesList.splice(user.favoritesList.indexOf(request.body.favoritesList), 1);
-//   user.favoritesList = user.favoritesList;
-//   await user.save();
-
-//   response.sendStatus(204);
+//   response.json(bookmarks);
 // });
 
+// update user bookmarks
+app.put('/api/current-user', async (request, response) => {
+  const token = request.headers['jwt-token'];
+
+  const verification = jwt.verify(token, jwtSecret);
+  
+  const user = await User.findOne({
+    where: {
+      id: verification.userId
+    }
+  });
+  if (user.bookmarks !== null) {
+    user.bookmarks = user.bookmarks.concat(request.body.bookmarks);
+  } else {
+    user.bookmarks = [request.body.bookmarks];
+  }
+  
+  await user.save();
+  response.sendStatus(204);
+});
+
+// delete a bookmark
+app.put('/api/delete-item/', async (request, response) => {
+  const token = request.headers['jwt-token'];
+
+  const verification = jwt.verify(token, jwtSecret);
+  
+  const user = await User.findOne({
+    where: {
+      id: verification.userId
+    }
+  });
+  user.bookmarks.splice(user.bookmarks.indexOf(request.body.bookmarks), 1);
+  user.bookmarks = user.bookmarks;
+  await user.save();
+
+  response.sendStatus(204);
+});
+
+// delete a user
 app.delete('/api/delete-item/', async (request, response) => {
   const token = request.headers['jwt-token'];
 
