@@ -175,3 +175,22 @@ app.delete('/api/delete-item/', async (request, response) => {
 app.listen(PORT, () => {
   console.log(`Express server listening on port ${PORT}`);
 });
+
+// create incident
+
+app.post('/api/create-incident/', async (request, response)) => {
+  await Incident.create({
+    apiId: request.body.apiId,
+    borough: request.body.borough,
+    date: request.body.date,
+    latitude: request.body.latitude,
+    longitude: request.body.longitude,
+    cyclistsInjured: request.body.cyclistsInjured,
+    cyclistsKilled: request.body.cyclistsKilled,
+    pedestriansInjured: request.body.pedestriansInjured,
+    motoristsInjured: request.body.motoristsInjured,
+    motoristsKilled: request.body.motoristsKilled,
+    totalInjured: request.body.totalInjured,
+    totalKilled: request.body.totalKilled,
+  });
+}

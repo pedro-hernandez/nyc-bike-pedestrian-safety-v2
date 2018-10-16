@@ -82,7 +82,6 @@ class LandingPageMap extends Component {
                 <BookmarkButton 
                 apiId={popupInfo.unique_key}
                 bookmarks={this.props.bookmarks}
-                toggleDetails={this.props.toggleDetails}
                 bookmarkIncident={this.props.bookmarkIncident}
                 removeIncident={this.props.removeIncident}
                  />

@@ -78,6 +78,7 @@ class App extends Component {
     }));
   }
 
+
   removeIncident = async ApiId => {
     await fetch(`/api/delete-item/`, {
       method: 'PUT',
