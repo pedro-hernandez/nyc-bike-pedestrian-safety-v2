@@ -1,5 +1,5 @@
 const express = require('express');
-const {User, Incident, Character} = require('./models');
+const {User, Incident, Character, UserIncident} = require('./models');
 const bodyParser = require('body-parser');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
@@ -83,7 +83,7 @@ app.post('/api/login', async (request, response) => {
 });
 
 // access current user
-app.get('/api/current-user', async (request, response) => {
+app.get('/api/current-user/', async (request, response) => {
   
   const token = request.headers['jwt-token'];
   let verification;
@@ -100,26 +100,8 @@ app.get('/api/current-user', async (request, response) => {
   response.status(200).json(findId);
 });
 
-// access user's bookmarks
-// app.get('/api/bookmarks', async (request, response) => {
-  
-//   const token = request.headers['jwt-token'];
-//   let verification;
-//   try{
-//     verification = jwt.verify(token, jwtSecret);
-//   }catch(e) {
-//     console.log(e);
-//   }
-//   const bookmarks = await User.findOne({
-//     where: {
-//       id: verification.userId
-//     }
-//   });
-//   response.json(bookmarks);
-// });
-
 // update user bookmarks
-app.put('/api/current-user', async (request, response) => {
+app.put('/api/current-user/', async (request, response) => {
   const token = request.headers['jwt-token'];
 
   const verification = jwt.verify(token, jwtSecret);
@@ -172,14 +154,13 @@ app.delete('/api/delete-item/', async (request, response) => {
   response.sendStatus(204);
 });
 
-app.listen(PORT, () => {
-  console.log(`Express server listening on port ${PORT}`);
-});
-
 // create incident
-
-app.post('/api/create-incident/', async (request, response)) => {
-  await Incident.create({
+app.post('/api/create-incident', async (request, response) => {
+  const token = request.headers['jwt-token'];
+  const verify = await jwt.verify(token, jwtSecret);
+  console.log(verify);
+  const userId = verify.userId;
+  const incident = await Incident.create({
     apiId: request.body.apiId,
     borough: request.body.borough,
     date: request.body.date,
@@ -188,9 +169,23 @@ app.post('/api/create-incident/', async (request, response)) => {
     cyclistsInjured: request.body.cyclistsInjured,
     cyclistsKilled: request.body.cyclistsKilled,
     pedestriansInjured: request.body.pedestriansInjured,
+    pedestriansKilled: request.body.pedestriansKilled,
     motoristsInjured: request.body.motoristsInjured,
     motoristsKilled: request.body.motoristsKilled,
     totalInjured: request.body.totalInjured,
     totalKilled: request.body.totalKilled,
   });
-}
+  console.log(incident.id);
+
+  const userIncidentBookmark = await UserIncident.create({
+    incidentId: incident.id,
+    userId: userId,
+  })
+
+  response.sendStatus(200);
+});
+
+app.listen(PORT, () => {
+  console.log(`Express server listening on port ${PORT}`);
+});
+

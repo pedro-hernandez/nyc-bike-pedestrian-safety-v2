@@ -5,7 +5,7 @@ import './style.css';
 class BookmarkButton extends Component {
 
     bookmarkIncident = () => {
-        this.props.bookmarkIncident(this.props.apiId);
+        this.props.bookmarkIncident(this.props.apiId, this.props.popupInfo);
     }
 
     removeIncident = () => {

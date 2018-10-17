@@ -29,10 +29,10 @@ const Incident = sequelize.define('incident', {
   },
   borough: {
     type: Sequelize.TEXT,
-    allowNull: false
+    allowNull: true
   },
   date: {
-    type: Sequelize.DATE,
+    type: Sequelize.STRING,
     allowNull: false
   },
   latitude: {
@@ -45,35 +45,43 @@ const Incident = sequelize.define('incident', {
   },
   cyclistsInjured: {
     type: Sequelize.INTEGER,
-    allowNull: false
+    allowNull: false,
+    defaultValue: 0
   },
   cyclistsKilled: {
     type: Sequelize.INTEGER,
-    allowNull: false
+    allowNull: false,
+    defaultValue: 0
   },
   pedestriansInjured: {
     type: Sequelize.INTEGER,
-    allowNull: false
+    allowNull: false,
+    defaultValue: 0
   },
   pedestriansKilled: {
     type: Sequelize.INTEGER,
-    allowNull: false
+    allowNull: false,
+    defaultValue: 0
   },
   motoristsInjured: {
     type: Sequelize.INTEGER,
-    allowNull: false
+    allowNull: false,
+    defaultValue: 0
   },
   motoristsKilled: {
     type: Sequelize.INTEGER,
-    allowNull: false
+    allowNull: false,
+    defaultValue: 0
   },
   totalInjured: {
     type: Sequelize.INTEGER,
-    allowNull: false
+    allowNull: false,
+    defaultValue: 0
   },
   totalKilled: {
     type: Sequelize.INTEGER,
-    allowNull: false
+    allowNull: false,
+    defaultValue: 0
   }
 });
 
@@ -85,5 +93,6 @@ User.belongsToMany(Incident, { through: UserIncident });
 module.exports = {
   User,
   Incident,
+  UserIncident,
   sequelize: sequelize
 };

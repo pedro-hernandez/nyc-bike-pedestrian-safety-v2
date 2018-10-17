@@ -60,7 +60,8 @@ class App extends Component {
     });
   }
 
-  bookmarkIncident = async ApiId => {
+  bookmarkIncident = async (ApiId, popupInfo) => {
+    console.log(popupInfo);
     await fetch(`/api/current-user/`, {
       method: 'PUT',
       body: JSON.stringify({
@@ -76,8 +77,31 @@ class App extends Component {
     this.setState(prevState => ({
       bookmarks: this.state.user.bookmarks
     }));
-  }
 
+    const incidentData = {
+      apiId: popupInfo.unique_key,
+        borough: popupInfo.borough,
+        date: popupInfo.date,
+        latitude: popupInfo.latitude,
+        longitude: popupInfo.longitude,
+        cyclistsInjured: popupInfo.number_of_cyclists_injured,
+        cyclistsKilled: popupInfo.number_of_cyclists_killed,
+        pedestriansInjured: popupInfo.number_of_pedestrians_injured,
+        pedestriansKilled: popupInfo.number_of_pedestrians_killed,
+        motoristsInjured: popupInfo.number_of_motorists_injured,
+        motoristsKilled: popupInfo.number_of_motorists_killed,
+        totalInjured: popupInfo.number_of_persons_injured,
+        totalKilled: popupInfo.number_of_persons_killed
+    }
+    await fetch(`/api/create-incident/`, {
+      method: 'POST',
+      body: JSON.stringify(incidentData),
+      headers: {
+        'Content-Type': 'application/json',
+        'jwt-token': localStorage.getItem('user-jwt')
+      }
+    });
+  }
 
   removeIncident = async ApiId => {
     await fetch(`/api/delete-item/`, {

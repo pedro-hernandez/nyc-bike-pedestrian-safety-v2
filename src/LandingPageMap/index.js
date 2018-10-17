@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import ReactMapGL, { Marker, Popup } from 'react-map-gl';
 import MarkerPin from '../MarkerPin';
 import BookmarkButton from '../BookmarkButton';
+import { Link } from 'react-router-dom';
 import './style.css';
 // import { runInThisContext } from 'vm';
 
@@ -80,6 +81,7 @@ class LandingPageMap extends Component {
                 {`People killed: ${popupInfo.number_of_persons_killed}`}
                 </div>
                 <BookmarkButton 
+                popupInfo={this.state.popupInfo}
                 apiId={popupInfo.unique_key}
                 bookmarks={this.props.bookmarks}
                 bookmarkIncident={this.props.bookmarkIncident}
@@ -96,6 +98,7 @@ class LandingPageMap extends Component {
         return (
             <div>
                 <p>20 Most Recent Accidents</p>
+                <Link className="link" to="/" onClick={this.props.onLogout}>Logout</Link>
                 <ReactMapGL className="map"
                     {...viewport}
                     mapStyle="mapbox://styles/mapbox/dark-v9"
