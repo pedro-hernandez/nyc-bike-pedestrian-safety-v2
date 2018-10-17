@@ -63,7 +63,7 @@ class UserRegistration extends Component {
             return;
         }
         this.props.onLogin();
-        localStorage.setItem('user-jwt', JSON.stringify(responseBody))
+        localStorage.setItem('user-jwt', responseBody)
         this.props.history.push("/");
     }
 

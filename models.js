@@ -8,7 +8,8 @@ const sequelize = new Sequelize(process.env.DATABASE_URL || 'postgres://localhos
 const User = sequelize.define('user', {
   username: {
     type: Sequelize.TEXT,
-    allowNull: false
+    allowNull: false,
+    unique: true
   },
   password: {
     type: Sequelize.TEXT,
@@ -25,7 +26,6 @@ const Incident = sequelize.define('incident', {
   apiId: {
     type: Sequelize.INTEGER,
     allowNull: false,
-    unique: true
   },
   borough: {
     type: Sequelize.TEXT,

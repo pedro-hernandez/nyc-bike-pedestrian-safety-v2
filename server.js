@@ -1,5 +1,5 @@
 const express = require('express');
-const {User, Incident, Character, UserIncident} = require('./models');
+const { User, Incident, Character, UserIncident } = require('./models');
 const bodyParser = require('body-parser');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
@@ -22,16 +22,16 @@ app.post('/api/register', async (request, response) => {
     response.status(404).send("JSON body must include username, password");
     return;
   }
-  const existingUser =  await User.findOne({
+  const existingUser = await User.findOne({
     where: {
       username: request.body.username
     }
   });
-  if (existingUser){
+  if (existingUser) {
     response.status(409).send("Username already taken");
     return;
   }
-  const encrypted = await bcrypt.hash(request.body.password,12);
+  const encrypted = await bcrypt.hash(request.body.password, 12);
   await User.create({
     username: request.body.username,
     password: encrypted
@@ -68,13 +68,11 @@ app.post('/api/login', async (request, response) => {
     });
     return;
   }
-  
+
   const isPasswordCorrect = await bcrypt.compare(password, existingUser.password);
   if (isPasswordCorrect) {
     const token = jwt.sign({ userId: existingUser.id }, jwtSecret);
-    response.json({
-      token: token
-    });
+    response.json(token);
   } else {
     response.status(401).json({
       message: "Invalid username or password."
@@ -84,12 +82,11 @@ app.post('/api/login', async (request, response) => {
 
 // access current user
 app.get('/api/current-user/', async (request, response) => {
-  
   const token = request.headers['jwt-token'];
   let verification;
-  try{
+  try {
     verification = jwt.verify(token, jwtSecret);
-  }catch(e) {
+  } catch (e) {
     console.log(e);
   }
   const findId = await User.findOne({
@@ -103,20 +100,21 @@ app.get('/api/current-user/', async (request, response) => {
 // update user bookmarks
 app.put('/api/current-user/', async (request, response) => {
   const token = request.headers['jwt-token'];
-
-  const verification = jwt.verify(token, jwtSecret);
-  
+  const verification = await jwt.verify(token, jwtSecret);
+  console.log(verification)
   const user = await User.findOne({
     where: {
       id: verification.userId
     }
   });
+
   if (user.bookmarks !== null) {
     user.bookmarks = user.bookmarks.concat(request.body.bookmarks);
   } else {
+    console.log('yes???????')
     user.bookmarks = [request.body.bookmarks];
   }
-  
+
   await user.save();
   response.sendStatus(204);
 });
@@ -125,8 +123,8 @@ app.put('/api/current-user/', async (request, response) => {
 app.put('/api/delete-item/', async (request, response) => {
   const token = request.headers['jwt-token'];
 
-  const verification = jwt.verify(token, jwtSecret);
-  
+  const verification = await jwt.verify(token, jwtSecret);
+
   const user = await User.findOne({
     where: {
       id: verification.userId
@@ -143,8 +141,8 @@ app.put('/api/delete-item/', async (request, response) => {
 app.delete('/api/delete-item/', async (request, response) => {
   const token = request.headers['jwt-token'];
 
-  const verification = jwt.verify(token, jwtSecret);
-  
+  const verification = await jwt.verify(token, jwtSecret);
+
   await User.destroy({
     where: {
       id: verification.userId
@@ -157,6 +155,7 @@ app.delete('/api/delete-item/', async (request, response) => {
 // create incident
 app.post('/api/create-incident', async (request, response) => {
   const token = request.headers['jwt-token'];
+  // console.log(token);
   const verify = await jwt.verify(token, jwtSecret);
   console.log(verify);
   const userId = verify.userId;
@@ -175,8 +174,8 @@ app.post('/api/create-incident', async (request, response) => {
     totalInjured: request.body.totalInjured,
     totalKilled: request.body.totalKilled,
   });
-  console.log(incident.id);
-
+  // console.log(incident.id);
+  console.log('are we hitting this?')
   const userIncidentBookmark = await UserIncident.create({
     incidentId: incident.id,
     userId: userId,

@@ -49,7 +49,7 @@ class App extends Component {
   }
 
   fetchUser = async () => {
-    const response = await fetch('/api/current-user', {
+    const response = await fetch('/api/current-user/', {
       headers: {
         'jwt-token': localStorage.getItem('user-jwt')
       }
@@ -62,7 +62,7 @@ class App extends Component {
 
   bookmarkIncident = async (ApiId, popupInfo) => {
     console.log(popupInfo);
-    await fetch(`/api/current-user/`, {
+    await fetch(`/api/current-user`, {
       method: 'PUT',
       body: JSON.stringify({
         bookmarks: ApiId
