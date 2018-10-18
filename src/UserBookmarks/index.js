@@ -16,7 +16,7 @@ class UserBookmarks extends Component {
     
 
 fetchBookmarks = async () => {
-    let userId = this.props.userId;
+    let userId = this.props.user.id;
     console.log(userId);
     let bookmarksFromDb;
     try {

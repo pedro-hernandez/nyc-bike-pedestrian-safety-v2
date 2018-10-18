@@ -11,7 +11,6 @@ class App extends Component {
 
     this.state = {
       user: {},
-      userId: {},
       username: "",
       password: "",
       isLoggedIn: false,
@@ -58,10 +57,9 @@ class App extends Component {
     });
     const user = await response.json();
     this.setState({
-      user: user,
-      userId: user.id,
+      user: user
     });
-    // console.log(this.state.userId);
+    console.log(this.state.user)
   }
 
   bookmarkIncident = async (ApiId, popupInfo) => {
@@ -110,6 +108,7 @@ class App extends Component {
   }
 
   removeIncident = async ApiId => {
+    // console.log(ApiId);
     await fetch(`/api/delete-item/`, {
       method: 'PUT',
       body: JSON.stringify({
@@ -127,6 +126,22 @@ class App extends Component {
     }));
 
     console.log(this.state.bookmarks);
+
+    await this.fetchUser();
+
+    console.log(this.state.user.id);
+    await fetch(`/api/delete-bookmark/`, {
+      method: 'DELETE',
+      body: JSON.stringify({
+        apiId: ApiId,
+        userId: this.state.user.id,
+      }),
+      headers: {
+        'Content-Type': 'application/json',
+        'jwt-token': localStorage.getItem('user-jwt')
+      }
+    });
+
   }
 
   render() {
@@ -158,7 +173,6 @@ class App extends Component {
                     bookmarkIncident={this.bookmarkIncident}
                     removeIncident={this.removeIncident}
                     user={this.state.user}
-                    userId={this.state.userId}
                     fetchUser={this.fetchUser}
                   />
                 }

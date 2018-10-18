@@ -96,7 +96,7 @@ class LandingPageMap extends Component {
 
 
     render = () => {
-        console.log(this.props.userId);
+        // console.log(this.props.user.id);
         const { viewport } = this.state;
         const incidents = this.state.incidents;
         return (
@@ -113,7 +113,7 @@ class LandingPageMap extends Component {
                 </ReactMapGL>
                 <UserBookmarks 
                 user={this.props.user}
-                userId={this.props.userId}
+                // userId={this.props.userId}
                 fetchUser={this.props.fetchUser}/>
             </div>
         );

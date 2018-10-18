@@ -136,6 +136,27 @@ app.put('/api/delete-item/', async (request, response) => {
   response.sendStatus(204);
 });
 
+// delete a bookmark from db
+
+app.delete('/api/delete-bookmark/', async (request, response) => {
+  console.log(request.body.userId)
+  console.log(request.body.apiId)
+  const incident = await Incident.findOne({
+    where: {
+      apiId: request.body.apiId
+    }
+  });
+  console.log(incident);
+
+  await UserIncident.destroy({
+    where: {
+      userId: request.body.userId,
+      incidentId: incident.id,
+    }
+  });
+  response.sendStatus(200);
+});
+
 // delete a user
 app.delete('/api/delete-item/', async (request, response) => {
   const token = request.headers['jwt-token'];
@@ -156,7 +177,7 @@ app.post('/api/create-incident', async (request, response) => {
   const token = request.headers['jwt-token'];
   // console.log(token);
   const userId = await jwt.verify(token, jwtSecret);
-  console.log(userID);
+  console.log(userId);
   // const userId = verify.userId;
   const incident = await Incident.create({
     apiId: request.body.apiId,
@@ -178,7 +199,7 @@ app.post('/api/create-incident', async (request, response) => {
   // console.log('are we hitting this?')
   const userIncidentBookmark = await UserIncident.create({
     incidentId: incident.id,
-    userId: userId,
+    userId: userId.userId,
   });
 
   response.sendStatus(200);
@@ -197,6 +218,7 @@ app.get('/api/bookmarks/:userId', async (request, response) => {
   });
   response.json(bookmarks);
 });
+
 
 app.listen(PORT, () => {
   console.log(`Express server listening on port ${PORT}`);
