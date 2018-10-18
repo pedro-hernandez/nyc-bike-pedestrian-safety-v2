@@ -58,10 +58,11 @@ class App extends Component {
     this.setState({
       user: user
     });
+    console.log(this.state.user)
   }
 
   bookmarkIncident = async (ApiId, popupInfo) => {
-    console.log(popupInfo);
+    // console.log(popupInfo);
     await fetch(`/api/current-user`, {
       method: 'PUT',
       body: JSON.stringify({

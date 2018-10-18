@@ -1,5 +1,5 @@
 const express = require('express');
-const { User, Incident, Character, UserIncident } = require('./models');
+const { User, Incident, UserIncident } = require('./models');
 const bodyParser = require('body-parser');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
@@ -80,7 +80,7 @@ app.post('/api/login', async (request, response) => {
   }
 });
 
-// access current user
+// current user
 app.get('/api/current-user/', async (request, response) => {
   const token = request.headers['jwt-token'];
   let verification;
@@ -111,7 +111,6 @@ app.put('/api/current-user/', async (request, response) => {
   if (user.bookmarks !== null) {
     user.bookmarks = user.bookmarks.concat(request.body.bookmarks);
   } else {
-    console.log('yes???????')
     user.bookmarks = [request.body.bookmarks];
   }
 
@@ -152,13 +151,13 @@ app.delete('/api/delete-item/', async (request, response) => {
   response.sendStatus(204);
 });
 
-// create incident
+// create record in indicidents table
 app.post('/api/create-incident', async (request, response) => {
   const token = request.headers['jwt-token'];
   // console.log(token);
-  const verify = await jwt.verify(token, jwtSecret);
-  console.log(verify);
-  const userId = verify.userId;
+  const userId = await jwt.verify(token, jwtSecret);
+  console.log(userID);
+  // const userId = verify.userId;
   const incident = await Incident.create({
     apiId: request.body.apiId,
     borough: request.body.borough,
@@ -174,8 +173,9 @@ app.post('/api/create-incident', async (request, response) => {
     totalInjured: request.body.totalInjured,
     totalKilled: request.body.totalKilled,
   });
+
   // console.log(incident.id);
-  console.log('are we hitting this?')
+  // console.log('are we hitting this?')
   const userIncidentBookmark = await UserIncident.create({
     incidentId: incident.id,
     userId: userId,
@@ -184,7 +184,24 @@ app.post('/api/create-incident', async (request, response) => {
   response.sendStatus(200);
 });
 
+// access users' bookmarks
+app.get('/api/bookmarks/:userId', async (request, response) => {
+  // console.log('hitting me?')
+  // const token = request.headers['jwt-token'];
+  // console.log(token);
+  // const userId = await jwt.verify(token, jwtSecret);
+  // console.log(userId);
+  const bookmarks = await Incident.findAll({
+    include: [
+      where: {
+        model: User,
+        where: { id: request.params.userId }
+      },
+    ],
+  });
+  response.json(bookmarks);
+});
+
 app.listen(PORT, () => {
   console.log(`Express server listening on port ${PORT}`);
 });
-

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import ReactMapGL, { Marker, Popup } from 'react-map-gl';
 import MarkerPin from '../MarkerPin';
 import BookmarkButton from '../BookmarkButton';
+import UserBookmarks from '../UserBookmarks'
 import { Link } from 'react-router-dom';
 import './style.css';
 // import { runInThisContext } from 'vm';
@@ -27,7 +28,7 @@ class LandingPageMap extends Component {
                 latitude: 40.7454474,
                 longitude: -73.9711897,
                 zoom: 11,
-                pitch: 45,
+                pitch: 50,
             }
         };
     }
@@ -53,7 +54,7 @@ class LandingPageMap extends Component {
                 longitude={lng}
                 latitude={lat}
                 captureClick={true}>
-                <MarkerPin size={20} onClick={(prevState) => this.setState({popupInfo: incident})} />
+                <MarkerPin size={20} onClick={(prevState) => this.setState({ popupInfo: incident })} />
             </Marker>
 
         );
@@ -64,7 +65,7 @@ class LandingPageMap extends Component {
 
     _renderPopup = () => {
 
-        const {popupInfo} = this.state;
+        const { popupInfo } = this.state;
 
         return popupInfo && (
             <Popup
@@ -76,24 +77,24 @@ class LandingPageMap extends Component {
                 captureClick={true}
                 onClose={() => this.setState({ popupInfo: null })}>
                 <div className="popup-container">
-                {`People injured: ${popupInfo.number_of_persons_injured}`}
-                <br />
-                {`People killed: ${popupInfo.number_of_persons_killed}`}
+                    {`People injured: ${popupInfo.number_of_persons_injured}`}
+                    <br />
+                    {`People killed: ${popupInfo.number_of_persons_killed}`}
                 </div>
-                <BookmarkButton 
-                popupInfo={this.state.popupInfo}
-                apiId={popupInfo.unique_key}
-                bookmarks={this.props.bookmarks}
-                bookmarkIncident={this.props.bookmarkIncident}
-                removeIncident={this.props.removeIncident}
-                 />
+                <BookmarkButton
+                    popupInfo={this.state.popupInfo}
+                    apiId={popupInfo.unique_key}
+                    bookmarks={this.props.bookmarks}
+                    bookmarkIncident={this.props.bookmarkIncident}
+                    removeIncident={this.props.removeIncident}
+                />
             </Popup>
         );
     }
 
 
     render = () => {
-        const {viewport} = this.state;
+        const { viewport } = this.state;
         const incidents = this.state.incidents;
         return (
             <div>
@@ -107,6 +108,7 @@ class LandingPageMap extends Component {
                     {incidents.map(this._renderMarker)}
                     {this._renderPopup()}
                 </ReactMapGL>
+                <UserBookmarks />
             </div>
         );
     }
