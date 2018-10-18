@@ -8,12 +8,19 @@ class UserBookmarks extends Component {
             bookmarksFromDb: [],
         }
     }
+
+    componentDidMount = () => {
+        this.props.fetchUser();
+    }
+    
     
 
 fetchBookmarks = async () => {
+    let userId = this.props.userId;
+    console.log(userId);
     let bookmarksFromDb;
     try {
-        const response = await fetch('/api/bookmarks');
+        const response = await fetch(`/api/bookmarks/${userId}`);
         bookmarksFromDb = await response.json();
     } catch (error) {
         alert(error);
@@ -21,8 +28,7 @@ fetchBookmarks = async () => {
     this.setState({
         bookmarksFromDb: bookmarksFromDb
     });
-    console.log(bookmarksFromDb)
-
+    console.log(bookmarksFromDb);
 }
 
     render() {

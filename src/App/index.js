@@ -10,6 +10,8 @@ class App extends Component {
     super(props)
 
     this.state = {
+      user: {},
+      userId: {},
       username: "",
       password: "",
       isLoggedIn: false,
@@ -56,9 +58,10 @@ class App extends Component {
     });
     const user = await response.json();
     this.setState({
-      user: user
+      user: user,
+      userId: user.id,
     });
-    console.log(this.state.user)
+    // console.log(this.state.userId);
   }
 
   bookmarkIncident = async (ApiId, popupInfo) => {
@@ -79,20 +82,22 @@ class App extends Component {
       bookmarks: this.state.user.bookmarks
     }));
 
+    console.log(this.state.bookmarks);
+
     const incidentData = {
       apiId: popupInfo.unique_key,
-        borough: popupInfo.borough,
-        date: popupInfo.date,
-        latitude: popupInfo.latitude,
-        longitude: popupInfo.longitude,
-        cyclistsInjured: popupInfo.number_of_cyclists_injured,
-        cyclistsKilled: popupInfo.number_of_cyclists_killed,
-        pedestriansInjured: popupInfo.number_of_pedestrians_injured,
-        pedestriansKilled: popupInfo.number_of_pedestrians_killed,
-        motoristsInjured: popupInfo.number_of_motorists_injured,
-        motoristsKilled: popupInfo.number_of_motorists_killed,
-        totalInjured: popupInfo.number_of_persons_injured,
-        totalKilled: popupInfo.number_of_persons_killed
+      borough: popupInfo.borough,
+      date: popupInfo.date,
+      latitude: popupInfo.latitude,
+      longitude: popupInfo.longitude,
+      cyclistsInjured: popupInfo.number_of_cyclists_injured,
+      cyclistsKilled: popupInfo.number_of_cyclists_killed,
+      pedestriansInjured: popupInfo.number_of_pedestrians_injured,
+      pedestriansKilled: popupInfo.number_of_pedestrians_killed,
+      motoristsInjured: popupInfo.number_of_motorists_injured,
+      motoristsKilled: popupInfo.number_of_motorists_killed,
+      totalInjured: popupInfo.number_of_persons_injured,
+      totalKilled: popupInfo.number_of_persons_killed
     }
     await fetch(`/api/create-incident/`, {
       method: 'POST',
@@ -152,6 +157,9 @@ class App extends Component {
                     bookmarks={this.state.bookmarks}
                     bookmarkIncident={this.bookmarkIncident}
                     removeIncident={this.removeIncident}
+                    user={this.state.user}
+                    userId={this.state.userId}
+                    fetchUser={this.fetchUser}
                   />
                 }
               />

@@ -179,21 +179,17 @@ app.post('/api/create-incident', async (request, response) => {
   const userIncidentBookmark = await UserIncident.create({
     incidentId: incident.id,
     userId: userId,
-  })
+  });
 
   response.sendStatus(200);
 });
 
 // access users' bookmarks
 app.get('/api/bookmarks/:userId', async (request, response) => {
-  // console.log('hitting me?')
-  // const token = request.headers['jwt-token'];
-  // console.log(token);
-  // const userId = await jwt.verify(token, jwtSecret);
-  // console.log(userId);
+  console.log(request.params.userId);
   const bookmarks = await Incident.findAll({
     include: [
-      where: {
+      {
         model: User,
         where: { id: request.params.userId }
       },

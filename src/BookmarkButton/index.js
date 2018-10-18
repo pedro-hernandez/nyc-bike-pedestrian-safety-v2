@@ -13,8 +13,8 @@ class BookmarkButton extends Component {
     }
 
     render() {
-        console.log(this.props.bookmarks);
-        console.log(this.props.apiId);
+        // console.log(this.props.bookmarks);
+        // console.log(this.props.apiId);
         // console.log(typeof this.props.apiId)
     
         return (

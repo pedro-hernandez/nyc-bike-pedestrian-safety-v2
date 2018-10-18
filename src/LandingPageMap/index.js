@@ -43,6 +43,8 @@ class LandingPageMap extends Component {
                     incidents: incidents
                 });
             });
+
+        this.props.fetchUser();
     }
 
     _renderMarker = (incident, index) => {
@@ -94,6 +96,7 @@ class LandingPageMap extends Component {
 
 
     render = () => {
+        console.log(this.props.userId);
         const { viewport } = this.state;
         const incidents = this.state.incidents;
         return (
@@ -108,7 +111,10 @@ class LandingPageMap extends Component {
                     {incidents.map(this._renderMarker)}
                     {this._renderPopup()}
                 </ReactMapGL>
-                <UserBookmarks />
+                <UserBookmarks 
+                user={this.props.user}
+                userId={this.props.userId}
+                fetchUser={this.props.fetchUser}/>
             </div>
         );
     }
