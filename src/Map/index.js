@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ReactMapGL, { Marker } from 'react-map-gl';
+import MarkerPin from '../MarkerPin';
 import "./style.css";
 
 
@@ -26,7 +27,7 @@ class Map extends Component {
                 onViewportChange={(viewport) => this.setState({ viewport })}
                 mapboxApiAccessToken={this.props.mapboxToken} >
             <Marker latitude={parseFloat(this.props.latitude)} longitude={parseFloat(this.props.longitude)}>
-            <div></div>
+            <MarkerPin size={20} />
             </Marker>
             </ReactMapGL>
             </div>

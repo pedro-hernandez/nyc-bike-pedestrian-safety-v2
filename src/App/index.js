@@ -57,7 +57,8 @@ class App extends Component {
     });
     const user = await response.json();
     this.setState({
-      user: user
+      user: user,
+      bookmarks: user.bookmarks
     });
     console.log(this.state.user)
   }
@@ -76,11 +77,11 @@ class App extends Component {
     });
     await this.fetchUser();
 
-    this.setState(prevState => ({
-      bookmarks: this.state.user.bookmarks
-    }));
+    // this.setState(prevState => ({
+    //   bookmarks: this.state.user.bookmarks
+    // }));
 
-    console.log(this.state.bookmarks);
+    console.log(this.state.user.bookmarks);
 
     const incidentData = {
       apiId: popupInfo.unique_key,
@@ -121,13 +122,11 @@ class App extends Component {
     });
     await this.fetchUser();
 
-    this.setState(prevState => ({
-      bookmarks: this.state.user.bookmarks
-    }));
+    // this.setState(prevState => ({
+    //   bookmarks: this.state.user.bookmarks
+    // }));
 
     console.log(this.state.bookmarks);
-
-    await this.fetchUser();
 
     console.log(this.state.user.id);
     await fetch(`/api/delete-bookmark/`, {

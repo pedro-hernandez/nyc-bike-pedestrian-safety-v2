@@ -89,6 +89,8 @@ class LandingPageMap extends Component {
                     bookmarks={this.props.bookmarks}
                     bookmarkIncident={this.props.bookmarkIncident}
                     removeIncident={this.props.removeIncident}
+                    mapboxToken={this.props.mapboxToken}
+                    // incidents={this.state.incidents}
                 />
             </Popup>
         );
@@ -113,8 +115,9 @@ class LandingPageMap extends Component {
                 </ReactMapGL>
                 <UserBookmarks 
                 user={this.props.user}
-                // userId={this.props.userId}
-                fetchUser={this.props.fetchUser}/>
+                fetchUser={this.props.fetchUser}
+                mapboxToken={this.props.mapboxToken}
+                />
             </div>
         );
     }
