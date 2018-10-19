@@ -29,7 +29,7 @@ const Incident = sequelize.define('incident', {
   // apiId taken from NYC Open Data - NYPD API's unique_key
   apiId: {
     type: Sequelize.INTEGER,
-    allowNull: false,
+    allowNull: false
   },
   borough: {
     type: Sequelize.TEXT,
@@ -38,6 +38,10 @@ const Incident = sequelize.define('incident', {
   date: {
     type: Sequelize.STRING,
     allowNull: false
+  },
+  time: {
+    type: Sequelize.STRING,
+    allowNull: true
   },
   latitude: {
     type: Sequelize.FLOAT,

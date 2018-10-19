@@ -87,6 +87,7 @@ class App extends Component {
       apiId: popupInfo.unique_key,
       borough: popupInfo.borough,
       date: popupInfo.date,
+      time: popupInfo.time,
       latitude: popupInfo.latitude,
       longitude: popupInfo.longitude,
       cyclistsInjured: popupInfo.number_of_cyclists_injured,
@@ -128,7 +129,7 @@ class App extends Component {
 
     console.log(this.state.bookmarks);
 
-    console.log(this.state.user.id);
+    // console.log(this.state.user.id);
     await fetch(`/api/delete-bookmark/`, {
       method: 'DELETE',
       body: JSON.stringify({

@@ -183,6 +183,7 @@ app.post('/api/create-incident', async (request, response) => {
     apiId: request.body.apiId,
     borough: request.body.borough,
     date: request.body.date,
+    time: request.body.time,
     latitude: request.body.latitude,
     longitude: request.body.longitude,
     cyclistsInjured: request.body.cyclistsInjured,
