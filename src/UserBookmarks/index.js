@@ -47,8 +47,7 @@ fetchBookmarks = async () => {
                                     {(item.number_of_persons_injured === 0 && item.number_of_persons_killed === 0) ? `No one was hurt ` : <span className="hurt">At least one person was hurt </span>}
                                     on {moment(item.date).format("dddd, MMMM Do YYYY")} at {moment(item.time, 'hh:mm a').format("hh:mm a")}{item.borough && <span className="zip-span"> in zip code {item.zip_code}</span>}
                                 </div>
-                                <Incident item={item} showIncident={this.state.showIncident} mapboxToken={this.props.mapboxToken}
-/>
+                                <Incident item={item} showIncident={this.state.showIncident} removeIncident={this.props.removeIncident} mapboxToken={this.props.mapboxToken} popupInfo={this.props.popupInfo}/>
                             </div>
                         );
                     })

@@ -11,6 +11,11 @@ class Incident extends Component {
 
     }
 
+    removeIncident = () => {
+        this.props.removeIncident(this.props.item.apiId);
+        console.log(this.props.item.apiId)
+    }
+
     render() {
         return (
             <div>
@@ -18,6 +23,7 @@ class Incident extends Component {
 />
                 <div className="details">
                 <p>DETAILS</p>
+                <button className="remove-button" onClick={this.removeIncident}>Remove</button>
                 <ul className="details-list">
                 {this.props.item.number_of_persons_injured > 0 && <li className="total-hurt-li"><span className="total-hurt">Total number of people hurt: {this.props.item.number_of_persons_injured}</span></li>}
                 {this.props.item.number_of_persons_killed > 0 && <li className="hurt-li">People killed: {this.props.item.number_of_persons_killed}</li>}

@@ -85,12 +85,11 @@ class LandingPageMap extends Component {
                 </div>
                 <BookmarkButton
                     popupInfo={this.state.popupInfo}
-                    apiId={popupInfo.unique_key}
+                    apiId={this.state.popupInfo.unique_key}
                     bookmarks={this.props.bookmarks}
                     bookmarkIncident={this.props.bookmarkIncident}
                     removeIncident={this.props.removeIncident}
                     mapboxToken={this.props.mapboxToken}
-                    // incidents={this.state.incidents}
                 />
             </Popup>
         );
@@ -119,6 +118,8 @@ class LandingPageMap extends Component {
                 user={this.props.user}
                 fetchUser={this.props.fetchUser}
                 mapboxToken={this.props.mapboxToken}
+                removeIncident={this.props.removeIncident}
+                popupInfo={this.state.popupInfo}
                 />
             </div>
         );
