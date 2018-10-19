@@ -25,9 +25,9 @@ class LandingPageMap extends Component {
             viewport: {
                 width: 800,
                 height: 600,
-                latitude: 40.7454474,
-                longitude: -73.9711897,
-                zoom: 11,
+                latitude: 40.7126,
+                longitude: -73.9005,
+                zoom: 9.2,
                 pitch: 50,
             }
         };
