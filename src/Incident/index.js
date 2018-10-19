@@ -13,26 +13,25 @@ class Incident extends Component {
 
     removeIncident = () => {
         this.props.removeIncident(this.props.item.apiId);
-        console.log(this.props.item.apiId)
     }
 
     render() {
+        console.log(this.props.item);
         return (
             <div>
                 <Map latitude={this.props.item.latitude} longitude={this.props.item.longitude} width={600} height={371} mapboxToken={this.props.mapboxToken}
 />
                 <div className="details">
-                <p>DETAILS</p>
-                <button className="remove-button" onClick={this.removeIncident}>Remove</button>
+                <button className="remove-button" onClick={() => {this.removeIncident(); this.props.fetchBookmarks();}}>Remove This Bookmark</button>
                 <ul className="details-list">
-                {this.props.item.number_of_persons_injured > 0 && <li className="total-hurt-li"><span className="total-hurt">Total number of people hurt: {this.props.item.number_of_persons_injured}</span></li>}
-                {this.props.item.number_of_persons_killed > 0 && <li className="hurt-li">People killed: {this.props.item.number_of_persons_killed}</li>}
-                {this.props.item.number_of_cyclists_injured > 0 && <li className="hurt-li">Cyclists hurt: {this.props.item.number_of_cyclists_injured}</li>}
-                {this.props.item.number_of_cyclist_killed > 0 && <li className="hurt-li">Cyclists killed: {this.props.item.number_of_cyclist_killed}</li>}
-                {this.props.item.number_of_pedestrians_injured > 0 && <li className="hurt-li">Pedestrians hurt: {this.props.item.number_of_pedestrians_injured}</li>}
-                {this.props.item.number_of_pedestrians_killed > 0 && <li className="hurt-li">Pedestrians killed: {this.props.item.number_of_pedestrians_killed}</li>}
-                {this.props.item.number_of_motorist_injured > 0 && <li className="hurt-li">Motorists hurt: {this.props.item.number_of_motorist_injured}</li>}
-                {this.props.item.number_of_motorist_killed > 0 && <li className="hurt-li">Motorists killed: {this.props.item.number_of_motorist_killed}</li>}
+                {this.props.item.totalInjured > 0 && <li className="total-hurt-li"><span className="total-hurt">Total number of people hurt: {this.props.item.totalInjured}</span></li>}
+                {this.props.item.totalKilled > 0 && <li className="hurt-li">People killed: {this.props.item.totalkilled}</li>}
+                {this.props.item.cyclistsInjured > 0 && <li className="hurt-li">Cyclists hurt: {this.props.item.cyclistsInjured}</li>}
+                {this.props.item.cyclistKilled > 0 && <li className="hurt-li">Cyclists killed: {this.props.item.cyclistKilled}</li>}
+                {this.props.item.pedestriansInjured > 0 && <li className="hurt-li">Pedestrians hurt: {this.props.item.pedestriansInjured}</li>}
+                {this.props.item.pedestriansKilled > 0 && <li className="hurt-li">Pedestrians killed: {this.props.item.pedestriansKilled}</li>}
+                {this.props.item.motoristInjured > 0 && <li className="hurt-li">Motorists hurt: {this.props.item.motoristInjured}</li>}
+                {this.props.item.motoristKilled > 0 && <li className="hurt-li">Motorists killed: {this.props.item.motoristKilled}</li>}
                 </ul>
                 </div>
             </div>
