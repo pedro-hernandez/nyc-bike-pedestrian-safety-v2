@@ -17,6 +17,7 @@ class Incident extends Component {
                 <Map latitude={this.props.item.latitude} longitude={this.props.item.longitude} width={600} height={371} mapboxToken={this.props.mapboxToken}
 />
                 <div className="details">
+                <p>DETAILS</p>
                 <ul className="details-list">
                 {this.props.item.number_of_persons_injured > 0 && <li className="total-hurt-li"><span className="total-hurt">Total number of people hurt: {this.props.item.number_of_persons_injured}</span></li>}
                 {this.props.item.number_of_persons_killed > 0 && <li className="hurt-li">People killed: {this.props.item.number_of_persons_killed}</li>}

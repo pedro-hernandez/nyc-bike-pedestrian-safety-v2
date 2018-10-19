@@ -11,7 +11,7 @@ import './style.css';
 // const mapboxToken = 'pk.eyJ1IjoicGhlcm4iLCJhIjoiY2psc2JlN3lnMDBiaTNwcGhyaWlpa2VldCJ9.665bVWc7nQRX882OxrIaNg';
 
 // 20 most recent incidents from the NYC Open Data / NYPD Motor Vehicle Collisions API
-const recentIncidents = 'https://data.cityofnewyork.us/resource/qiz3-axqb.json?$$app_token=vsw3d1IWA34wIGA56fGGb4DIc&$limit=30&$where=latitude%20IS%20NOT%20NULL';
+const recentIncidents = 'https://data.cityofnewyork.us/resource/qiz3-axqb.json?$$app_token=vsw3d1IWA34wIGA56fGGb4DIc&$limit=50&$order=date%20DESC&$where=latitude%20IS%20NOT%20NULL';
 
 
 class LandingPageMap extends Component {
@@ -103,10 +103,12 @@ class LandingPageMap extends Component {
         const incidents = this.state.incidents;
         return (
             <div>
-                <p>20 Most Recent Accidents</p>
+                <h1 className="h1">NYC Bike and Pedestrian Safety App v.2 🚴‍🚶‍</h1>
+                <p>50 Most Recent Accidents</p>
                 <Link className="link" to="/" onClick={this.props.onLogout}>Logout</Link>
                 <ReactMapGL className="map"
                     {...viewport}
+                    onViewportChange={(viewport) => this.setState({ viewport })}
                     mapStyle="mapbox://styles/mapbox/dark-v9"
                     mapboxApiAccessToken={this.props.mapboxToken}
                 >

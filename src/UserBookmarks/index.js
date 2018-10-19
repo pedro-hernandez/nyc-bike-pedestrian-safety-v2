@@ -44,8 +44,8 @@ fetchBookmarks = async () => {
                         return (
                             <div className="incident" key={item.id} value={this.state.value}>
                                 <div className="text-summary">
-                                    {(parseInt(item.number_of_persons_injured, 10) === 0 && parseInt(item.number_of_persons_killed, 10) === 0) ? `No one was hurt ` : <span className="hurt">At least one person was hurt </span>}
-                                    on {moment(item.date).format("dddd, MMMM Do YYYY")} at {moment(item.time, 'hh:mm a').format("hh:mm a")}{this.props.borough && <span className="zip-span"> in zip code {item.zip_code}</span>}
+                                    {(item.number_of_persons_injured === 0 && item.number_of_persons_killed === 0) ? `No one was hurt ` : <span className="hurt">At least one person was hurt </span>}
+                                    on {moment(item.date).format("dddd, MMMM Do YYYY")} at {moment(item.time, 'hh:mm a').format("hh:mm a")}{item.borough && <span className="zip-span"> in zip code {item.zip_code}</span>}
                                 </div>
                                 <Incident item={item} showIncident={this.state.showIncident} mapboxToken={this.props.mapboxToken}
 />

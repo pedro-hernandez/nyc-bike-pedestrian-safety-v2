@@ -13,7 +13,7 @@ class Map extends Component {
             height: this.props.height,
             latitude: parseFloat(this.props.latitude),
             longitude: parseFloat(this.props.longitude),
-            zoom: 14,
+            zoom: 16,
             pitch: 45,
         }
     };
