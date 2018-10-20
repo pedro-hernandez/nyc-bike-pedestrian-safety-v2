@@ -69,16 +69,22 @@ class UserRegistration extends Component {
 
     render() {
         return (
-            <div className="form">
-                <h1 className="h1">NYC Bike and Pedestrian Safety App v.2 🚴‍🚶‍</h1>
-                <form onSubmit={this.onFormSubmit}>
-                    <div>Log in to view your bookmarked accidents. Not a member? Register below!</div>
-                    <input type="text" name="username" placeholder="username" onChange={this.handleChange} />
-                    <input type="password" name="password" placeholder="password" onChange={this.handleChange} />
-                    <input type="text" name="email" placeholder="email optional" onChange={this.handleChange} /><br></br>
-                    <button type="button" onClick={this.register}>Register</button>
-                    <button type="button" onClick={this.logIn}>Login</button>
-                </form>
+            <div>
+                <header className="header">
+                    <div className="header-wrapper">
+                        <h1 className="h1">NYC Bike and Pedestrian Safety App v.2 🚴‍🚶‍</h1>
+                    </div>
+                </header>
+                <main className="main">
+                    <form onSubmit={this.onFormSubmit}>
+                        <div>Log in to view your bookmarked accidents. Not a member? Register below!</div>
+                        <input type="text" name="username" placeholder="username" onChange={this.handleChange} />
+                        <input type="password" name="password" placeholder="password" onChange={this.handleChange} />
+                        <input type="text" name="email" placeholder="email optional" onChange={this.handleChange} /><br></br>
+                        <button type="button" onClick={this.register}>Register</button>
+                        <button type="button" onClick={this.logIn}>Login</button>
+                    </form>
+                </main>
             </div>
         );
     }

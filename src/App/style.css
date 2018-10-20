@@ -1,3 +1,95 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
 .h1 {
     font-family: 'Titillium Web', sans-serif;
+}
+
+.container {
+    height: 100vh;
+    font-family: 'Roboto', sans-serif;
+    color: #0a0a0a;
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    grid-template-rows: 60px auto 30px;
+    grid-template-areas:
+    "h h h h h h h h h h"
+    "c c c c c c c c c c"
+    "f f f f f f f f f f";
+}
+
+.header {
+    grid-area: h;
+    background: #ffffff;
+    color: #30408a;
+    border-bottom: 1px solid #000000;
+    /* box-shadow: 5px 0px 20px 10px #747474; */
+}
+
+.header-wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 800px;
+    margin: 0 auto;
+}
+
+.h2 {
+    font-family: 'Titillium Web', sans-serif;
+}
+
+.main {
+    display: flex;
+    flex-direction: row;
+    width: 800px;
+    margin: 0 auto;
+}
+
+/* logout button */
+
+.logout-button {
+    width: 50px;
+    height: 20px;
+    margin: auto 0;
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    color: #ffffff;
+    background: #30408a;
+    padding: 5px;
+    border: 1px solid #30408a;
+    border-radius: 2px;
+    cursor: pointer;
+}
+
+.logout-button a {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.logout-button:hover {
+    color: #30408a;
+    background: #ffffff;
+}
+
+.logout-button:hover a {
+    color: #30408a;
+}
+
+/* maps */
+
+.popup-container {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+}
+
+.main-map {
+    width: 100%;
+    /* box-shadow: 0px 10px 20px 10px #747474; */
+}
+
+.map {
+    border: 1px solid #000000;
 }

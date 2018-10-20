@@ -8,7 +8,7 @@ class UserBookmarks extends Component {
         super(props);
         this.state = {
             mappedIncidents: [],
-            bookmarksFromDb: [],
+            // bookmarksFromDb: [],
             value: '',
             key: 0,
             showIncident: false,
@@ -32,7 +32,7 @@ class UserBookmarks extends Component {
         this.setState(prevState => ({
             mappedIncidents: incidents
         }));
-        console.log(this.state.mappedIncidents);
+        // console.log(this.state.mappedIncidents);
     }
 
     render() {

@@ -23,8 +23,8 @@ class LandingPageMap extends Component {
             incidents: [],
             popupInfo: null,
             viewport: {
-                width: 800,
-                height: 600,
+                width: 798,
+                height: 493,
                 latitude: 40.7126,
                 longitude: -73.9005,
                 zoom: 9.2,
@@ -102,24 +102,35 @@ class LandingPageMap extends Component {
         const incidents = this.state.incidents;
         return (
             <div>
-                <h1 className="h1">NYC Bike and Pedestrian Safety App v.2 🚴‍🚶‍</h1>
-                <p>50 Most Recent Accidents</p>
-                <Link className="link" to="/" onClick={this.props.onLogout}>Logout</Link>
-                <ReactMapGL className="map"
-                    {...viewport}
-                    onViewportChange={(viewport) => this.setState({ viewport })}
-                    mapStyle="mapbox://styles/mapbox/dark-v9"
-                    mapboxApiAccessToken={this.props.mapboxToken}
-                >
-                    {incidents.map(this._renderMarker)}
-                    {this._renderPopup()}
-                </ReactMapGL>
-                <UserBookmarks 
-                user={this.props.user}
-                fetchUser={this.props.fetchUser}
-                mapboxToken={this.props.mapboxToken}
-                removeIncident={this.props.removeIncident}
-                popupInfo={this.state.popupInfo}
+                <header className="header">
+                    <div className="header-wrapper">
+                        <div>
+                            <h1 className="h1">NYC Bike and Pedestrian Safety App v.2 🚴‍🚶‍</h1>
+                        </div>
+                        <div className="logout-button">
+                            <Link to="/" onClick={this.props.onLogout}>Logout</Link>
+                        </div>
+                    </div>
+                </header>
+                <main className="main">
+                    <div className="main-map">
+                        <h2 className="h2">50 Most Recent Accidents</h2>
+                        <ReactMapGL className="map"
+                            {...viewport}
+                            onViewportChange={(viewport) => this.setState({ viewport })}
+                            mapStyle="mapbox://styles/mapbox/dark-v9"
+                            mapboxApiAccessToken={this.props.mapboxToken}>
+                            {incidents.map(this._renderMarker)}
+                            {this._renderPopup()}
+                        </ReactMapGL>
+                    </div>
+                </main>
+                <UserBookmarks
+                    user={this.props.user}
+                    fetchUser={this.props.fetchUser}
+                    mapboxToken={this.props.mapboxToken}
+                    removeIncident={this.props.removeIncident}
+                    popupInfo={this.state.popupInfo}
                 />
             </div>
         );

@@ -87,7 +87,7 @@ class App extends Component {
       apiId: popupInfo.unique_key,
       borough: popupInfo.borough,
       date: popupInfo.date,
-      time: popupInfo.time,
+      date: popupInfo.date,
       latitude: popupInfo.latitude,
       longitude: popupInfo.longitude,
       cyclistsInjured: popupInfo.number_of_cyclists_injured,
@@ -145,13 +145,14 @@ class App extends Component {
   }
 
   render() {
-    return <div className="App">
+    return <div>
       <Router>
-        <div className="app">
+        <div>
           {!this.state.isLoggedIn ?
             <Route
               path="/"
               render={props =>
+                <div>
                 <UserRegistration
                   {...props}
                   handleChange={this.handleChange}
@@ -159,6 +160,7 @@ class App extends Component {
                   username={this.state.username}
                   password={this.state.password}
                 />
+                </div>
               }
             />
             : this.state.isLoggedIn ?
