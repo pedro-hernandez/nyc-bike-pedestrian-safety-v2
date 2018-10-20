@@ -37,8 +37,8 @@ class UserBookmarks extends Component {
 
     render() {
         return (
-            <div>
-                <button onClick={this.fetchBookmarks}>FETCH BOOKMARKS</button>
+            <div className="bookmarks">
+                <button onClick={this.fetchBookmarks}>Retrieve or Refresh Your Bookmarks</button>
                 <div className="bookmarks-list">
                     {this.state.mappedIncidents.map((item, index) => {
                         return (

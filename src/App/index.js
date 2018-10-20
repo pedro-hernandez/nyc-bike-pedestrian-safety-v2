@@ -158,8 +158,7 @@ class App extends Component {
                   handleChange={this.handleChange}
                   onLogin={this.onLogin}
                   username={this.state.username}
-                  password={this.state.password}
-                />
+                  password={this.state.password} />
                 </div>
               }
             />
@@ -175,8 +174,7 @@ class App extends Component {
                     bookmarkIncident={this.bookmarkIncident}
                     removeIncident={this.removeIncident}
                     user={this.state.user}
-                    fetchUser={this.fetchUser}
-                  />
+                    fetchUser={this.fetchUser} />
                 }
               />
               : null

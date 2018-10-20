@@ -24,10 +24,9 @@ class Incident extends Component {
         // console.log(this.props.item);
         return (
             <div>
-                <Map latitude={this.props.item.latitude} longitude={this.props.item.longitude} width={600} height={371} mapboxToken={this.props.mapboxToken}
+                <Map latitude={this.props.item.latitude} longitude={this.props.item.longitude} width={248} height={248} mapboxToken={this.props.mapboxToken}
 />
                 <div className="details">
-                <button className="remove-button" onClick={this.handleClick}>Remove This Bookmark</button>
                 <ul className="details-list">
                 {this.props.item.totalInjured > 0 && <li className="total-hurt-li"><span className="total-hurt">Total number of people hurt: {this.props.item.totalInjured}</span></li>}
                 {this.props.item.totalKilled > 0 && <li className="hurt-li">People killed: {this.props.item.totalkilled}</li>}
@@ -38,6 +37,7 @@ class Incident extends Component {
                 {this.props.item.motoristInjured > 0 && <li className="hurt-li">Motorists hurt: {this.props.item.motoristInjured}</li>}
                 {this.props.item.motoristKilled > 0 && <li className="hurt-li">Motorists killed: {this.props.item.motoristKilled}</li>}
                 </ul>
+                <button className="remove-button" onClick={this.handleClick}>Remove This Bookmark</button>
                 </div>
             </div>
         )

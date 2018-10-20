@@ -23,8 +23,8 @@ class LandingPageMap extends Component {
             incidents: [],
             popupInfo: null,
             viewport: {
-                width: 798,
-                height: 493,
+                width: 898,
+                height: 554,
                 latitude: 40.7126,
                 longitude: -73.9005,
                 zoom: 9.2,

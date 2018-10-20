@@ -32,7 +32,8 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    width: 800px;
+    flex-wrap: wrap;
+    width: 900px;
     margin: 0 auto;
 }
 
@@ -43,11 +44,22 @@
 .main {
     display: flex;
     flex-direction: row;
-    width: 800px;
+    flex-wrap: wrap;
+    width: 900px;
     margin: 0 auto;
 }
 
 /* logout button */
+
+@keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+@keyframes fadeout {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
 
 .logout-button {
     width: 50px;
@@ -60,8 +72,9 @@
     background: #30408a;
     padding: 5px;
     border: 1px solid #30408a;
-    border-radius: 2px;
+    border-radius: 6px;
     cursor: pointer;
+    animation: fadeout .5s;
 }
 
 .logout-button a {
@@ -72,6 +85,7 @@
 .logout-button:hover {
     color: #30408a;
     background: #ffffff;
+    animation: fadein .5s;
 }
 
 .logout-button:hover a {
@@ -91,5 +105,39 @@
 }
 
 .map {
+    width: 248px;
     border: 1px solid #000000;
+    margin: 0 auto;
 }
+
+/* bookmarks */
+
+.bookmarks {
+    width: 900px;
+    margin: 10px auto 0 auto;
+}
+
+.bookmarks-list {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.incident {
+    width: 280px;
+    border: 1px solid #000000;
+    margin: 12px 0;
+}
+
+.text-summary {
+    margin: 10px 12px;
+}
+
+.details {
+    margin: 10px 12px;
+}
+
+.details-list {
+    list-style: none;
+  }
