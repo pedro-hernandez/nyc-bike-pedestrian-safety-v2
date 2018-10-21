@@ -23,8 +23,8 @@ class LandingPageMap extends Component {
             incidents: [],
             popupInfo: null,
             viewport: {
-                width: 898,
-                height: 554,
+                width: 896,
+                height: 552,
                 latitude: 40.7126,
                 longitude: -73.9005,
                 zoom: 9.2,
@@ -115,7 +115,7 @@ class LandingPageMap extends Component {
                 <main className="main">
                     <div className="main-map">
                         <h2 className="h2">50 Most Recent Accidents</h2>
-                        <ReactMapGL className="map"
+                        <ReactMapGL className="map-large"
                             {...viewport}
                             onViewportChange={(viewport) => this.setState({ viewport })}
                             mapStyle="mapbox://styles/mapbox/dark-v9"

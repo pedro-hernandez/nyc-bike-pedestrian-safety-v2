@@ -3,8 +3,19 @@
     margin: 0;
 }
 
+/* background image credit: Pexels / Photographer Tatiana Fet
+https://www.pexels.com/photo/aerial-view-and-grayscale-photography-of-high-rise-buildings-1105766/ */
+
+body {
+    background-image: url("/img/35mm-aerial-analog-1105766.jpg");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+}
+
 .h1 {
     font-family: 'Titillium Web', sans-serif;
+
 }
 
 .container {
@@ -22,10 +33,13 @@
 
 .header {
     grid-area: h;
+    position: sticky;
+    top: 0;
+    z-index: 1;
     background: #ffffff;
     color: #30408a;
     border-bottom: 1px solid #000000;
-    /* box-shadow: 5px 0px 20px 10px #747474; */
+    /* box-shadow: 5px 0px 20px 10px #000000; */
 }
 
 .header-wrapper {
@@ -39,6 +53,13 @@
 
 .h2 {
     font-family: 'Titillium Web', sans-serif;
+    color: #ffffff;
+    /* text-shadow hack: https://wpshout.com/quick-guides/create-text-outline-css/ */
+    text-shadow:
+		-1px -1px 0 #000000,
+		1px -1px 0 #000000,
+		-1px 1px 0 #000000,
+		1px 1px 0 #000000;
 }
 
 .main {
@@ -66,12 +87,12 @@
     height: 20px;
     margin: auto 0;
     text-align: center;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: 'Titillium Web', sans-serif;
     font-size: 14px;
     color: #ffffff;
     background: #30408a;
     padding: 5px;
-    border: 1px solid #30408a;
+    border: 2px solid #30408a;
     border-radius: 6px;
     cursor: pointer;
     animation: fadeout .5s;
@@ -95,13 +116,17 @@
 /* maps */
 
 .popup-container {
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 14px;
+    font-family: 'Titillium Web', sans-serif;
 }
 
 .main-map {
     width: 100%;
     /* box-shadow: 0px 10px 20px 10px #747474; */
+}
+
+.map-large {
+    border: 2px solid #ffffff;
+    border-radius: 10px;
 }
 
 .map {
@@ -117,6 +142,26 @@
     margin: 10px auto 0 auto;
 }
 
+.bookmarks-button {
+    width: 100%;
+    background-color: #308a35;
+    color: #ffffff;
+    font-family: 'Titillium Web', sans-serif;
+    font-size: 20px;
+    padding: 5px 0;
+    border: 2px solid #308a35;
+    border-radius: 4px;
+    margin: 10px 0;
+    cursor: pointer;
+    animation: fadeout .5s;
+}
+
+.bookmarks-button:hover {
+    background-color: #ffffff;
+    color: #308a35;
+    animation: fadein .5s;   
+}
+
 .bookmarks-list {
     display: flex;
     flex-direction: row;
@@ -126,7 +171,14 @@
 
 .incident {
     width: 280px;
+    background-color: #ffffff;
     border: 1px solid #000000;
+    border-radius: 6px;
+    margin: 12px 0;
+    animation: fadein 1s;
+}
+.incident-trailing {
+    width: 280px;
     margin: 12px 0;
 }
 
