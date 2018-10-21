@@ -16,15 +16,16 @@ class App extends Component {
       isLoggedIn: false,
       bookmarks: [],
       mapboxToken: "pk.eyJ1IjoicGhlcm4iLCJhIjoiY2psc2JlN3lnMDBiaTNwcGhyaWlpa2VldCJ9.665bVWc7nQRX882OxrIaNg",
+      mappedIncidents: [],
     }
   }
 
   componentDidMount = () => {
     const token = localStorage.getItem("user-jwt");
     if (token) {
-      this.setState({
+      this.setState(prevState => ({
         isLoggedIn: true,
-      });
+      }));
     }
   }
 
@@ -46,7 +47,7 @@ class App extends Component {
 
     this.setState({
       isLoggedIn: false,
-    })
+    });
   }
 
   fetchUser = async () => {
@@ -81,7 +82,7 @@ class App extends Component {
     //   bookmarks: this.state.user.bookmarks
     // }));
 
-    console.log(this.state.user.bookmarks);
+    // console.log(this.state.user.bookmarks);
 
     const incidentData = {
       apiId: popupInfo.unique_key,
@@ -141,8 +142,24 @@ class App extends Component {
         'jwt-token': localStorage.getItem('user-jwt')
       }
     });
-
   }
+
+  fetchBookmarks = async () => {
+    let userId = this.state.user.id;
+    console.log(userId);
+    let incidents = [];
+    try {
+        const response = await fetch(`/api/bookmarks/${userId}`);
+        incidents = await response.json();
+    } catch (error) {
+        alert(error);
+    }
+    this.setState(prevState => ({
+        mappedIncidents: incidents
+    }));
+    // console.log(this.state.mappedIncidents);
+}
+
 
   render() {
     return <div>
@@ -153,12 +170,12 @@ class App extends Component {
               path="/"
               render={props =>
                 <div>
-                <UserRegistration
-                  {...props}
-                  handleChange={this.handleChange}
-                  onLogin={this.onLogin}
-                  username={this.state.username}
-                  password={this.state.password} />
+                  <UserRegistration
+                    {...props}
+                    handleChange={this.handleChange}
+                    onLogin={this.onLogin}
+                    username={this.state.username}
+                    password={this.state.password} />
                 </div>
               }
             />
@@ -174,7 +191,9 @@ class App extends Component {
                     bookmarkIncident={this.bookmarkIncident}
                     removeIncident={this.removeIncident}
                     user={this.state.user}
-                    fetchUser={this.fetchUser} />
+                    fetchUser={this.fetchUser} 
+                    fetchBookmarks={this.fetchBookmarks}
+                    mappedIncidents={this.state.mappedIncidents}/>
                 }
               />
               : null

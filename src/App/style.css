@@ -59,7 +59,8 @@ body {
 		-1px -1px 0 #000000,
 		1px -1px 0 #000000,
 		-1px 1px 0 #000000,
-		1px 1px 0 #000000;
+        1px 1px 0 #000000;
+    margin: 10px 0;
 }
 
 .main {
@@ -69,6 +70,50 @@ body {
     width: 900px;
     margin: 0 auto;
 }
+
+/* user registrations */
+
+.user-registration-inputs {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+}
+
+.user-registration-input {
+    width: 30%;
+    height: 40px;
+    font-family: 'Titillium Web', sans-serif;
+    font-size: 20px;
+    text-align: center;
+}
+
+.user-registration-buttons {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    margin: 20px 0;
+}
+
+.user-registration-button {
+    width: 40%;
+    background-color: #308a35;
+    color: #ffffff;
+    font-family: 'Titillium Web', sans-serif;
+    font-size: 20px;
+    padding: 5px;
+    border: 2px solid #308a35;
+    border-radius: 6px;
+    margin: 10px 20px;
+    cursor: pointer;
+    animation: fadeout .3s;
+}
+
+.user-registration-button:hover {
+    background-color: #ffffff;
+    color: #308a35;
+    animation: fadein .3s;
+}
+
 
 /* logout button */
 
@@ -117,6 +162,44 @@ body {
 
 .popup-container {
     font-family: 'Titillium Web', sans-serif;
+}
+
+.bookmark-button{
+    width: 100%;
+    background-color: #308a35;
+    color: #ffffff;
+    font-family: 'Titillium Web', sans-serif;
+    font-size: 16px;
+    padding: 5px;
+    border: 2px solid #308a35;
+    border-radius: 4px;
+    margin: 5px 0;
+    animation: fadeout .5s;
+}
+
+.bookmark-button:hover {
+    background-color: #ffffff;
+    color: #308a35;
+    animation: fadein .5s;
+}
+
+.remove-button{
+    width: 100%;
+    background-color: #8a3030;
+    color: #ffffff;
+    font-family: 'Titillium Web', sans-serif;
+    font-size: 16px;
+    padding: 5px;
+    border: 2px solid #8a3030;
+    border-radius: 4px;
+    margin: 5px 0;
+    animation: fadeout .5s;
+}
+
+.remove-button:hover {
+    background-color: #ffffff;
+    color: #8a3030;
+    animation: fadein .5s;
 }
 
 .main-map {
@@ -172,6 +255,8 @@ body {
 .incident {
     width: 280px;
     background-color: #ffffff;
+    font-family: 'Titillium Web', sans-serif;
+    font-size: 14px;
     border: 1px solid #000000;
     border-radius: 6px;
     margin: 12px 0;
@@ -193,3 +278,4 @@ body {
 .details-list {
     list-style: none;
   }
+

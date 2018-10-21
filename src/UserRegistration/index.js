@@ -77,12 +77,16 @@ class UserRegistration extends Component {
                 </header>
                 <main className="main">
                     <form onSubmit={this.onFormSubmit}>
-                        <div>Log in to view your bookmarked accidents. Not a member? Register below!</div>
-                        <input type="text" name="username" placeholder="username" onChange={this.handleChange} />
-                        <input type="password" name="password" placeholder="password" onChange={this.handleChange} />
-                        <input type="text" name="email" placeholder="email optional" onChange={this.handleChange} /><br></br>
-                        <button type="button" onClick={this.register}>Register</button>
-                        <button type="button" onClick={this.logIn}>Login</button>
+                        <h2 className="h2">Log in to view your bookmarked accidents. Not a member? Register below!</h2>
+                        <div className="user-registration-inputs">
+                            <input className="user-registration-input" type="text" name="username" placeholder="username" onChange={this.handleChange} />
+                            <input className="user-registration-input" type="password" name="password" placeholder="password" onChange={this.handleChange} />
+                            <input className="user-registration-input" type="text" name="email" placeholder="email (optional)" onChange={this.handleChange} />
+                        </div>
+                        <div className="user-registration-buttons">
+                            <button className="user-registration-button" type="button" onClick={this.register}>Register</button>
+                            <button className="user-registration-button" type="button" onClick={this.logIn}>Login</button>
+                        </div>
                     </form>
                 </main>
             </div>

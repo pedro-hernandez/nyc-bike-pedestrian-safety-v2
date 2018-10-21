@@ -18,7 +18,7 @@ class BookmarkButton extends Component {
         // console.log(typeof this.props.apiId)
     
         return (
-            <div className="map-buttons">
+            <div className="map-button">
                 {(this.props.bookmarks === null || (!this.props.bookmarks.includes(parseInt(this.props.apiId)))) ?
                     <button className="bookmark-button" onClick={this.bookmarkIncident}>Bookmark</button>
                     : <button className="remove-button" onClick={this.removeIncident}>Remove</button>
