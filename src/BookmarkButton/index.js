@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import './style.css';
-
 
 class BookmarkButton extends Component {
 
@@ -13,9 +11,6 @@ class BookmarkButton extends Component {
     }
 
     render() {
-        // console.log(this.props.bookmarks);
-        // console.log(this.props.apiId);
-        // console.log(typeof this.props.apiId)
     
         return (
             <div className="map-button">

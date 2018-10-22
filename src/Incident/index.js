@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import Map from "../Map";
-// import "./style.css"
 
 class Incident extends Component {
     constructor(props) {
@@ -11,21 +10,15 @@ class Incident extends Component {
 
     }
 
-    // removeBookmark = () => {
-    //     this.props.removeBookmark(this.props.item.apiId);
-    // }
-
     handleClick = () => {
         this.props.removeBookmark(this.props.item.apiId);
         this.props.fetchBookmarks();
     }
 
     render() {
-        // console.log(this.props.item);
         return (
             <div>
-                <Map latitude={this.props.item.latitude} longitude={this.props.item.longitude} width={248} height={248} mapboxToken={this.props.mapboxToken}
-/>
+                <Map latitude={this.props.item.latitude} longitude={this.props.item.longitude} width={248} height={248} mapboxToken={this.props.mapboxToken} />
                 <div className="details">
                 <ul className="details-list">
                 {this.props.item.totalInjured > 0 && <li className="total-hurt-li"><span className="total-hurt">Total number of people hurt: {this.props.item.totalInjured}</span></li>}

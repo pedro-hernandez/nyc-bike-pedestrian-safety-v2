@@ -1,49 +1,22 @@
 import React, { Component } from 'react';
 import moment from "moment";
 import Incident from "../Incident";
-import './style.css';
 
 class UserBookmarks extends Component {
     constructor(props) {
         super(props);
         this.state = {
             mappedIncidents: [],
-            // bookmarksFromDb: [],
             value: '',
             key: 0,
             showIncident: false,
         }
     }
 
-    // componentWillReceiveProps(nextProps){
-    //     if(nextProps.value !== this.props.value){
-    //         this.setState({count:nextProps.value});
-    //     }
-    // }
-
-    // componentDidMount = () => {
-    //     this.props.fetchUser();
-    // }
-
-    // fetchBookmarks = async () => {
-    //     let userId = this.props.user.id;
-    //     console.log(userId);
-    //     let incidents = [];
-    //     try {
-    //         const response = await fetch(`/api/bookmarks/${userId}`);
-    //         incidents = await response.json();
-    //     } catch (error) {
-    //         alert(error);
-    //     }
-    //     this.setState(prevState => ({
-    //         mappedIncidents: incidents
-    //     }));
-    //     // console.log(this.state.mappedIncidents);
-    // }
-
     render() {
         return (
             <div className="bookmarks">
+                <h2 className="h2">Your Bookmarks</h2>
                 <button className="bookmarks-button" onClick={this.props.fetchBookmarks}>Click to Retrieve or Refresh Your Bookmarks</button>
                 <div className="bookmarks-list">
                     {this.props.mappedIncidents.map((item, index) => {
@@ -56,8 +29,7 @@ class UserBookmarks extends Component {
                                 <Incident item={item} showIncident={this.state.showIncident} removeBookmark={this.props.removeBookmark} mapboxToken={this.props.mapboxToken} popupInfo={this.props.popupInfo} fetchBookmarks={this.props.fetchBookmarks} />
                             </div>
                         );
-                    })
-                    }
+                    })}
                     <div className="incident-trailing"></div>
                 </div>
             </div>

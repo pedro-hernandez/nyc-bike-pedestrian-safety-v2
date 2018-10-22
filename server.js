@@ -101,7 +101,6 @@ app.get('/api/current-user/', async (request, response) => {
 app.put('/api/current-user/', async (request, response) => {
   const token = request.headers['jwt-token'];
   const verification = await jwt.verify(token, jwtSecret);
-  // console.log(verification)
   const user = await User.findOne({
     where: {
       id: verification.userId
@@ -138,14 +137,6 @@ app.put('/api/delete-item/', async (request, response) => {
 
 // delete a bookmark from db
 app.delete('/api/delete-bookmark/', async (request, response) => {
-  console.log('userID: ' + request.body.userId)
-  console.log('apiID: ' + request.body.apiId)
-  // const incident = await Incident.findOne({
-  //   where: {
-  //     apiId: request.body.apiId
-  //     // userId: request.body.userId
-  //   }
-  // });
   const incident = await Incident.findOne({
     include: [
       {
@@ -155,10 +146,8 @@ app.delete('/api/delete-bookmark/', async (request, response) => {
     ],
     where: {
       apiId: request.body.apiId
-      // userId: request.body.userId
     }
   });
-  console.log('findOne results: ' + incident);
 
   await UserIncident.destroy({
     where: {
@@ -187,10 +176,7 @@ app.delete('/api/delete-user/', async (request, response) => {
 // create record in indicidents table
 app.post('/api/create-incident', async (request, response) => {
   const token = request.headers['jwt-token'];
-  // console.log(token);
   const userId = await jwt.verify(token, jwtSecret);
-  // console.log(userId);
-  // const userId = verify.userId;
   const incident = await Incident.create({
     apiId: request.body.apiId,
     borough: request.body.borough,
@@ -208,8 +194,6 @@ app.post('/api/create-incident', async (request, response) => {
     totalKilled: request.body.totalKilled,
   });
 
-  // console.log(incident.id);
-  // console.log('are we hitting this?')
   const userIncidentBookmark = await UserIncident.create({
     incidentId: incident.id,
     userId: userId.userId,
@@ -220,7 +204,6 @@ app.post('/api/create-incident', async (request, response) => {
 
 // access users' bookmarks
 app.get('/api/bookmarks/:userId', async (request, response) => {
-  // console.log(request.params.userId);
   const bookmarks = await Incident.findAll({
     include: [
       {

@@ -1,10 +1,5 @@
 const Sequelize = require('sequelize');
 
-// const sequelize = new Sequelize(process.env.DATABASE_URL || 'postgres://localhost:5432/nyc_safety', {
-//   database: 'nyc_safety',
-//   dialect: 'postgres'
-// });
-
 const sequelize = new Sequelize(process.env.DATABASE_URL || 'postgres://localhost:5432/nyc_safety', {
   dialect: 'postgres'
 });

@@ -4,11 +4,6 @@ import MarkerPin from '../MarkerPin';
 import BookmarkButton from '../BookmarkButton';
 import UserBookmarks from '../UserBookmarks'
 import { Link } from 'react-router-dom';
-import './style.css';
-// import { runInThisContext } from 'vm';
-
-
-// const mapboxToken = 'pk.eyJ1IjoicGhlcm4iLCJhIjoiY2psc2JlN3lnMDBiaTNwcGhyaWlpa2VldCJ9.665bVWc7nQRX882OxrIaNg';
 
 // 20 most recent incidents from the NYC Open Data / NYPD Motor Vehicle Collisions API
 const recentIncidents = 'https://data.cityofnewyork.us/resource/qiz3-axqb.json?$$app_token=vsw3d1IWA34wIGA56fGGb4DIc&$limit=50&$order=date%20DESC&$where=latitude%20IS%20NOT%20NULL';
@@ -61,13 +56,9 @@ class LandingPageMap extends Component {
             user: user,
             bookmarks: user.bookmarks
         }));
-        console.log(this.state.user)
-        // console.log(this.state.bookmarks)
-
     }
 
     bookmarkIncident = async (apiUniqueKey, popupInfo) => {
-        // console.log(popupInfo);
         await fetch(`/api/current-user`, {
             method: 'PUT',
             body: JSON.stringify({
@@ -79,12 +70,6 @@ class LandingPageMap extends Component {
             }
         });
         await this.fetchUser();
-
-        // this.setState(prevState => ({
-        //   bookmarks: this.state.user.bookmarks
-        // }));
-
-        // console.log(this.state.user.bookmarks);
 
         const incidentData = {
             apiId: popupInfo.unique_key,
@@ -110,13 +95,10 @@ class LandingPageMap extends Component {
                 'jwt-token': localStorage.getItem('user-jwt')
             }
         });
-        // window.location.reload();
+        this.fetchBookmarks();
     }
 
     removeBookmark = async apiUniqueKey => {
-        console.log(apiUniqueKey);
-        console.log(typeof(apiUniqueKey));
-        console.log(this.state.user.id);
         await fetch(`/api/delete-item/`, {
             method: 'PUT',
             body: JSON.stringify({
@@ -130,12 +112,9 @@ class LandingPageMap extends Component {
         await this.fetchUser();
 
         this.setState(prevState => ({
-          bookmarks: this.state.user.bookmarks
+            bookmarks: this.state.user.bookmarks
         }));
 
-        // console.log(this.state.bookmarks);
-
-        // console.log(this.state.user.id);
         await fetch(`/api/delete-bookmark/`, {
             method: 'DELETE',
             body: JSON.stringify({
@@ -147,11 +126,12 @@ class LandingPageMap extends Component {
                 'jwt-token': localStorage.getItem('user-jwt')
             }
         });
+        this.fetchBookmarks();
+
     }
 
     fetchBookmarks = async () => {
         let userId = this.state.user.id;
-        console.log(userId);
         let incidents = [];
         try {
             const response = await fetch(`/api/bookmarks/${userId}`);
@@ -162,7 +142,6 @@ class LandingPageMap extends Component {
         this.setState(prevState => ({
             mappedIncidents: incidents
         }));
-        // console.log(this.state.mappedIncidents);
     }
 
     onLogout = () => {
@@ -231,7 +210,6 @@ class LandingPageMap extends Component {
 
 
     render = () => {
-        // console.log(this.props.user.id);
         const { viewport } = this.state;
         const incidents = this.state.incidents;
         return (
@@ -244,6 +222,11 @@ class LandingPageMap extends Component {
                         <div className="logout-button">
                             <Link to="/" onClick={this.onLogout}>Logout</Link>
                         </div>
+
+                        <div className="account-delete-button">
+                            <Link to="/" onClick={this.removeUser}>Delete Your Account</Link>
+                        </div>
+
                     </div>
                 </header>
                 <main className="main">

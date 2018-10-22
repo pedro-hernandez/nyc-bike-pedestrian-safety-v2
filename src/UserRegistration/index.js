@@ -25,9 +25,7 @@ class UserRegistration extends Component {
                 'Content-Type': 'application/json'
             }
         });
-        console.log(response.status);
         const responseBody = await response.json();
-        console.log(responseBody);
         if (response.status === 409 || responseBody === undefined) {
             alert("This username already exists, please select another username.");
             return;
@@ -95,4 +93,5 @@ class UserRegistration extends Component {
         );
     }
 }
+
 export default UserRegistration;
