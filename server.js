@@ -12,6 +12,7 @@ const app = express();
 // Static hosting for built files
 app.use("/", express.static("./build/"));
 
+// hide w/ env 
 const jwtSecret = 'xyz90785563'
 
 app.use(bodyParser.json());

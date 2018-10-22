@@ -67,7 +67,7 @@ class App extends Component {
             />
             : this.state.isLoggedIn ?
               <Route
-                path="/"
+                path="/home"
                 render={props =>
                   <LandingPageMap
                     {...props}
