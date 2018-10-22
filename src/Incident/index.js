@@ -11,12 +11,12 @@ class Incident extends Component {
 
     }
 
-    removeIncident = () => {
-        this.props.removeIncident(this.props.item.apiId);
-    }
+    // removeBookmark = () => {
+    //     this.props.removeBookmark(this.props.item.apiId);
+    // }
 
     handleClick = () => {
-        this.removeIncident();
+        this.props.removeBookmark(this.props.item.apiId);
         this.props.fetchBookmarks();
     }
 

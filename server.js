@@ -101,7 +101,7 @@ app.get('/api/current-user/', async (request, response) => {
 app.put('/api/current-user/', async (request, response) => {
   const token = request.headers['jwt-token'];
   const verification = await jwt.verify(token, jwtSecret);
-  console.log(verification)
+  // console.log(verification)
   const user = await User.findOne({
     where: {
       id: verification.userId
@@ -137,16 +137,28 @@ app.put('/api/delete-item/', async (request, response) => {
 });
 
 // delete a bookmark from db
-
 app.delete('/api/delete-bookmark/', async (request, response) => {
-  console.log(request.body.userId)
-  console.log(request.body.apiId)
+  console.log('userID: ' + request.body.userId)
+  console.log('apiID: ' + request.body.apiId)
+  // const incident = await Incident.findOne({
+  //   where: {
+  //     apiId: request.body.apiId
+  //     // userId: request.body.userId
+  //   }
+  // });
   const incident = await Incident.findOne({
+    include: [
+      {
+        model: User,
+        where: { id: request.body.userId }
+      },
+    ],
     where: {
       apiId: request.body.apiId
+      // userId: request.body.userId
     }
   });
-  console.log(incident);
+  console.log('findOne results: ' + incident);
 
   await UserIncident.destroy({
     where: {
@@ -158,7 +170,7 @@ app.delete('/api/delete-bookmark/', async (request, response) => {
 });
 
 // delete a user
-app.delete('/api/delete-item/', async (request, response) => {
+app.delete('/api/delete-user/', async (request, response) => {
   const token = request.headers['jwt-token'];
 
   const verification = await jwt.verify(token, jwtSecret);
@@ -177,7 +189,7 @@ app.post('/api/create-incident', async (request, response) => {
   const token = request.headers['jwt-token'];
   // console.log(token);
   const userId = await jwt.verify(token, jwtSecret);
-  console.log(userId);
+  // console.log(userId);
   // const userId = verify.userId;
   const incident = await Incident.create({
     apiId: request.body.apiId,
@@ -208,7 +220,7 @@ app.post('/api/create-incident', async (request, response) => {
 
 // access users' bookmarks
 app.get('/api/bookmarks/:userId', async (request, response) => {
-  console.log(request.params.userId);
+  // console.log(request.params.userId);
   const bookmarks = await Incident.findAll({
     include: [
       {
@@ -228,7 +240,7 @@ app.listen(PORT, () => {
 // In production, any request that doesn't match a previous route
 // should send the front-end application, which will handle the route.
 if (process.env.NODE_ENV == "production") {
-  app.get("/*", function(request, response) {
+  app.get("/*", function (request, response) {
     response.sendFile(path.join(__dirname, "build", "index.html"));
   });
 }

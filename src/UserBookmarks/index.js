@@ -51,9 +51,9 @@ class UserBookmarks extends Component {
                             <div className="incident" key={item.id} value={this.state.value}>
                                 <div className="text-summary">
                                     {(item.totalInjured === 0 && item.totalKilled === 0) ? `No one was hurt ` : <span className="hurt">At least one person was hurt </span>}
-                                    on {moment(item.date).format("dddd, MMMM Do YYYY")} {item.time ? `at {moment(item.time, 'hh:mm a').format("hh:mm a")}` : ``} {this.props.borough && <span className="zip-span">} in zip code {item.zip_code}</span>}
+                                    on {moment(item.date).format("dddd, MMMM Do YYYY")} {item.time ? `at ${moment(item.time, 'hh:mm a').format("hh:mm a")}` : ``} {this.props.borough && <span className="zip-span">} in zip code {item.zip_code}</span>}
                                 </div>
-                                <Incident item={item} showIncident={this.state.showIncident} removeIncident={this.props.removeIncident} mapboxToken={this.props.mapboxToken} popupInfo={this.props.popupInfo} fetchBookmarks={this.props.fetchBookmarks} />
+                                <Incident item={item} showIncident={this.state.showIncident} removeBookmark={this.props.removeBookmark} mapboxToken={this.props.mapboxToken} popupInfo={this.props.popupInfo} fetchBookmarks={this.props.fetchBookmarks} />
                             </div>
                         );
                     })

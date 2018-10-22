@@ -10,22 +10,19 @@ class App extends Component {
     super(props)
 
     this.state = {
-      user: {},
       username: "",
       password: "",
       isLoggedIn: false,
-      bookmarks: [],
       mapboxToken: "pk.eyJ1IjoicGhlcm4iLCJhIjoiY2psc2JlN3lnMDBiaTNwcGhyaWlpa2VldCJ9.665bVWc7nQRX882OxrIaNg",
-      mappedIncidents: [],
     }
   }
 
   componentDidMount = () => {
     const token = localStorage.getItem("user-jwt");
     if (token) {
-      this.setState(prevState => ({
+      this.setState({
         isLoggedIn: true,
-      }));
+      });
     }
   }
 
@@ -50,115 +47,115 @@ class App extends Component {
     });
   }
 
-  fetchUser = async () => {
-    const response = await fetch('/api/current-user/', {
-      headers: {
-        'jwt-token': localStorage.getItem('user-jwt')
-      }
-    });
-    const user = await response.json();
-    this.setState({
-      user: user,
-      bookmarks: user.bookmarks
-    });
-    console.log(this.state.user)
-  }
+  // fetchUser = async () => {
+  //   const response = await fetch('/api/current-user/', {
+  //     headers: {
+  //       'jwt-token': localStorage.getItem('user-jwt')
+  //     }
+  //   });
+  //   const user = await response.json();
+  //   this.setState({
+  //     user: user,
+  //     bookmarks: user.bookmarks
+  //   });
+  //   console.log(this.state.user)
+  // }
 
-  bookmarkIncident = async (ApiId, popupInfo) => {
-    // console.log(popupInfo);
-    await fetch(`/api/current-user`, {
-      method: 'PUT',
-      body: JSON.stringify({
-        bookmarks: ApiId
-      }),
-      headers: {
-        'Content-Type': 'application/json',
-        'jwt-token': localStorage.getItem('user-jwt')
-      }
-    });
-    await this.fetchUser();
+  // bookmarkIncident = async (apiUniqueKey, popupInfo) => {
+  //   // console.log(popupInfo);
+  //   await fetch(`/api/current-user`, {
+  //     method: 'PUT',
+  //     body: JSON.stringify({
+  //       bookmarks: apiUniqueKey
+  //     }),
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //       'jwt-token': localStorage.getItem('user-jwt')
+  //     }
+  //   });
+  //   await this.fetchUser();
 
-    // this.setState(prevState => ({
-    //   bookmarks: this.state.user.bookmarks
-    // }));
+  //   // this.setState(prevState => ({
+  //   //   bookmarks: this.state.user.bookmarks
+  //   // }));
 
-    // console.log(this.state.user.bookmarks);
+  //   // console.log(this.state.user.bookmarks);
 
-    const incidentData = {
-      apiId: popupInfo.unique_key,
-      borough: popupInfo.borough,
-      date: popupInfo.date,
-      date: popupInfo.date,
-      latitude: popupInfo.latitude,
-      longitude: popupInfo.longitude,
-      cyclistsInjured: popupInfo.number_of_cyclists_injured,
-      cyclistsKilled: popupInfo.number_of_cyclists_killed,
-      pedestriansInjured: popupInfo.number_of_pedestrians_injured,
-      pedestriansKilled: popupInfo.number_of_pedestrians_killed,
-      motoristsInjured: popupInfo.number_of_motorists_injured,
-      motoristsKilled: popupInfo.number_of_motorists_killed,
-      totalInjured: popupInfo.number_of_persons_injured,
-      totalKilled: popupInfo.number_of_persons_killed
-    }
-    await fetch(`/api/create-incident/`, {
-      method: 'POST',
-      body: JSON.stringify(incidentData),
-      headers: {
-        'Content-Type': 'application/json',
-        'jwt-token': localStorage.getItem('user-jwt')
-      }
-    });
-  }
+  //   const incidentData = {
+  //     apiId: popupInfo.unique_key,
+  //     borough: popupInfo.borough,
+  //     date: popupInfo.date,
+  //     date: popupInfo.date,
+  //     latitude: popupInfo.latitude,
+  //     longitude: popupInfo.longitude,
+  //     cyclistsInjured: popupInfo.number_of_cyclists_injured,
+  //     cyclistsKilled: popupInfo.number_of_cyclists_killed,
+  //     pedestriansInjured: popupInfo.number_of_pedestrians_injured,
+  //     pedestriansKilled: popupInfo.number_of_pedestrians_killed,
+  //     motoristsInjured: popupInfo.number_of_motorists_injured,
+  //     motoristsKilled: popupInfo.number_of_motorists_killed,
+  //     totalInjured: popupInfo.number_of_persons_injured,
+  //     totalKilled: popupInfo.number_of_persons_killed
+  //   }
+  //   await fetch(`/api/create-incident/`, {
+  //     method: 'POST',
+  //     body: JSON.stringify(incidentData),
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //       'jwt-token': localStorage.getItem('user-jwt')
+  //     }
+  //   });
+  // }
 
-  removeIncident = async ApiId => {
-    // console.log(ApiId);
-    await fetch(`/api/delete-item/`, {
-      method: 'PUT',
-      body: JSON.stringify({
-        bookmarks: ApiId
-      }),
-      headers: {
-        'Content-Type': 'application/json',
-        'jwt-token': localStorage.getItem('user-jwt')
-      }
-    });
-    await this.fetchUser();
+  // removeBookmark = async apiUniqueKey => {
+  //   // console.log(apiUniqueKey);
+  //   await fetch(`/api/delete-item/`, {
+  //     method: 'PUT',
+  //     body: JSON.stringify({
+  //       bookmarks: apiUniqueKey
+  //     }),
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //       'jwt-token': localStorage.getItem('user-jwt')
+  //     }
+  //   });
+  //   await this.fetchUser();
 
-    // this.setState(prevState => ({
-    //   bookmarks: this.state.user.bookmarks
-    // }));
+  //   // this.setState(prevState => ({
+  //   //   bookmarks: this.state.user.bookmarks
+  //   // }));
 
-    console.log(this.state.bookmarks);
+  //   console.log(this.state.bookmarks);
 
-    // console.log(this.state.user.id);
-    await fetch(`/api/delete-bookmark/`, {
-      method: 'DELETE',
-      body: JSON.stringify({
-        apiId: ApiId,
-        userId: this.state.user.id,
-      }),
-      headers: {
-        'Content-Type': 'application/json',
-        'jwt-token': localStorage.getItem('user-jwt')
-      }
-    });
-  }
+  //   // console.log(this.state.user.id);
+  //   await fetch(`/api/delete-bookmark/`, {
+  //     method: 'DELETE',
+  //     body: JSON.stringify({
+  //       apiId: apiUniqueKey,
+  //       userId: this.state.user.id,
+  //     }),
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //       'jwt-token': localStorage.getItem('user-jwt')
+  //     }
+  //   });
+  // }
 
-  fetchBookmarks = async () => {
-    let userId = this.state.user.id;
-    console.log(userId);
-    let incidents = [];
-    try {
-        const response = await fetch(`/api/bookmarks/${userId}`);
-        incidents = await response.json();
-    } catch (error) {
-        alert(error);
-    }
-    this.setState(prevState => ({
-        mappedIncidents: incidents
-    }));
-    // console.log(this.state.mappedIncidents);
-}
+//   fetchBookmarks = async () => {
+//     let userId = this.state.user.id;
+//     console.log(userId);
+//     let incidents = [];
+//     try {
+//         const response = await fetch(`/api/bookmarks/${userId}`);
+//         incidents = await response.json();
+//     } catch (error) {
+//         alert(error);
+//     }
+//     this.setState(prevState => ({
+//         mappedIncidents: incidents
+//     }));
+//     // console.log(this.state.mappedIncidents);
+// }
 
 
   render() {
@@ -181,7 +178,7 @@ class App extends Component {
             />
             : this.state.isLoggedIn ?
               <Route
-                path="/"
+                path="/home"
                 render={props =>
                   <LandingPageMap
                     {...props}
@@ -189,7 +186,7 @@ class App extends Component {
                     onLogout={this.onLogout}
                     bookmarks={this.state.bookmarks}
                     bookmarkIncident={this.bookmarkIncident}
-                    removeIncident={this.removeIncident}
+                    removeBookmark={this.removeBookmark}
                     user={this.state.user}
                     fetchUser={this.fetchUser} 
                     fetchBookmarks={this.fetchBookmarks}

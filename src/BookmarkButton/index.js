@@ -8,8 +8,8 @@ class BookmarkButton extends Component {
         this.props.bookmarkIncident(this.props.apiId, this.props.popupInfo);
     }
 
-    removeIncident = () => {
-        this.props.removeIncident(this.props.apiId);
+    removeBookmark = () => {
+        this.props.removeBookmark(this.props.apiId);
     }
 
     render() {
@@ -21,7 +21,7 @@ class BookmarkButton extends Component {
             <div className="map-button">
                 {(this.props.bookmarks === null || (!this.props.bookmarks.includes(parseInt(this.props.apiId)))) ?
                     <button className="bookmark-button" onClick={this.bookmarkIncident}>Bookmark</button>
-                    : <button className="remove-button" onClick={this.removeIncident}>Remove</button>
+                    : <button className="remove-button" onClick={this.removeBookmark}>Remove</button>
                 }
             </div>
         )

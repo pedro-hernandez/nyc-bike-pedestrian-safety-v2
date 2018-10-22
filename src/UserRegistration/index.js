@@ -25,14 +25,16 @@ class UserRegistration extends Component {
                 'Content-Type': 'application/json'
             }
         });
+        console.log(response.status);
         const responseBody = await response.json();
+        console.log(responseBody);
         if (response.status === 409 || responseBody === undefined) {
-            alert("This username already exists, please select another username.")
+            alert("This username already exists, please select another username.");
             return;
         }
         this.props.onLogin();
         localStorage.setItem('user-jwt', responseBody);
-        this.props.history.push("/");
+        this.props.history.push("/home");
     }
 
     logIn = async () => {
@@ -63,8 +65,8 @@ class UserRegistration extends Component {
             return;
         }
         this.props.onLogin();
-        localStorage.setItem('user-jwt', responseBody)
-        this.props.history.push("/");
+        localStorage.setItem('user-jwt', (responseBody));
+        this.props.history.push("/home");
     }
 
     render() {
