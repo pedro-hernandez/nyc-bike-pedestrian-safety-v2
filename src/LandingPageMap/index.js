@@ -3,10 +3,11 @@ import ReactMapGL, { Marker, Popup } from 'react-map-gl';
 import MarkerPin from '../MarkerPin';
 import BookmarkButton from '../BookmarkButton';
 import UserBookmarks from '../UserBookmarks'
+import ZipCodeSelect from '../ZipCodeSelect';
 import { Link } from 'react-router-dom';
 
-// 20 most recent incidents from the NYC Open Data / NYPD Motor Vehicle Collisions API
-const recentIncidents = 'https://data.cityofnewyork.us/resource/qiz3-axqb.json?$$app_token=vsw3d1IWA34wIGA56fGGb4DIc&$limit=50&$order=date%20DESC&$where=latitude%20IS%20NOT%20NULL';
+// 50 most recent incidents from the NYC Open Data / NYPD Motor Vehicle Collisions API
+// const recentIncidents = 'https://data.cityofnewyork.us/resource/qiz3-axqb.json?$$app_token=vsw3d1IWA34wIGA56fGGb4DIc&$limit=50&$order=date%20DESC&$where=latitude%20IS%20NOT%20NULL';
 
 
 class LandingPageMap extends Component {
@@ -32,17 +33,22 @@ class LandingPageMap extends Component {
     }
 
     componentDidMount = () => {
+        this.fetchUser();
+    }
 
-        // collects incidident data from API
-        fetch(recentIncidents)
+    componentDidUpdate = () => {
+        this.fetchRecentIncidents();
+    }
+
+    fetchRecentIncidents = async () => {
+        // collects incident data from API
+        fetch(this.props.recentIncidents)
             .then(response => response.json())
             .then(incidents => {
                 this.setState({
                     incidents: incidents
                 });
             });
-
-        this.fetchUser();
     }
 
     fetchUser = async () => {
@@ -231,7 +237,7 @@ class LandingPageMap extends Component {
                 </header>
                 <main className="main">
                     <div className="main-map">
-                        <h2 className="h2">50 Most Recent Accidents</h2>
+                        <h2 className="h2">50 Most Recent Accidents in NYC</h2>
                         <ReactMapGL className="map-large"
                             {...viewport}
                             onViewportChange={(viewport) => this.setState({ viewport })}
@@ -240,6 +246,8 @@ class LandingPageMap extends Component {
                             {incidents.map(this._renderMarker)}
                             {this._renderPopup()}
                         </ReactMapGL>
+                        ...or view accidents in your neighborhood.
+                        <ZipCodeSelect zipInfo={this.props.zipInfo}/>
                     </div>
                 </main>
                 <UserBookmarks

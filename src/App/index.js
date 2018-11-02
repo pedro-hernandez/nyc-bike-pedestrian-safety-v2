@@ -10,10 +10,12 @@ class App extends Component {
     super(props)
 
     this.state = {
-      username: "",
-      password: "",
+      username: '',
+      password: '',
       isLoggedIn: false,
+      zip: '',
       mapboxToken: "pk.eyJ1IjoicGhlcm4iLCJhIjoiY2psc2JlN3lnMDBiaTNwcGhyaWlpa2VldCJ9.665bVWc7nQRX882OxrIaNg",
+      recentIncidents: "https://data.cityofnewyork.us/resource/qiz3-axqb.json?$$app_token=vsw3d1IWA34wIGA56fGGb4DIc&$limit=50&$order=date%20DESC&$where=latitude%20IS%20NOT%20NULL",
     }
   }
 
@@ -44,6 +46,28 @@ class App extends Component {
 
     this.setState({
       isLoggedIn: false,
+    });
+  }
+
+  // fetchRecentIncidents = async () => {
+  //   // collects incident data from API
+  //   fetch(this.state.recentIncidents)
+  //     .then(response => response.json())
+  //     .then(incidents => {
+  //       this.setState({
+  //         incidents: incidents
+  //       });
+  //     });
+  // }
+
+  zipInfo = async (selectedZip) => {
+
+    const nypdApi = `https://data.cityofnewyork.us/resource/qiz3-axqb.json?$$app_token=vsw3d1IWA34wIGA56fGGb4DIc&$limit=50&zip_code=${selectedZip}&$order=date%20DESC&$offset=0&$where=location%20IS%20NOT%20NULL`;
+
+    console.log(nypdApi)
+
+    this.setState({
+      recentIncidents: nypdApi,
     });
   }
 
@@ -79,8 +103,11 @@ class App extends Component {
                     user={this.state.user}
                     fetchUser={this.fetchUser}
                     fetchBookmarks={this.fetchBookmarks}
-                    mappedIncidents={this.state.mappedIncidents} />
-                }/> : null }
+                    mappedIncidents={this.state.mappedIncidents}
+                    recentIncidents={this.state.recentIncidents}
+                    fetchRecentIncidents={this.fetchRecentIncidents}
+                    zipInfo={this.zipInfo} />
+                } /> : null}
         </div>
       </Router>
     </div>
