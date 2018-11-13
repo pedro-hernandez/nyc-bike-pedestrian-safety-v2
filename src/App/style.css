@@ -68,7 +68,49 @@ body {
     margin: 0 auto;
 }
 
-/* user registrations */
+/*  zip code input */
+
+.label {
+    font-family: 'Titillium Web', sans-serif;
+    font-size: 20px;
+    color: #fff568;
+    /* text-shadow: https://wpshout.com/quick-guides/create-text-outline-css/ */
+    text-shadow:
+		-1px -1px 0 #000000,
+		1px -1px 0 #000000,
+		-1px 1px 0 #000000,
+        1px 2px 3px #000000;
+    margin: 10px 0;
+}
+
+.zip-input {
+    width: 30%;
+    height: 40px;
+    font-family: 'Titillium Web', sans-serif;
+    font-size: 20px;
+    border-radius: 4px;
+}
+
+.zip-submit-button{
+    background-color: #308a35;
+    color: #ffffff;
+    font-family: 'Titillium Web', sans-serif;
+    font-size: 16px;
+    padding: 5px;
+    border: 2px solid #308a35;
+    border-radius: 4px;
+    margin-left: 10px;
+    cursor: pointer;
+    animation: fadeout .5s;
+}
+
+.zip-submit-button:hover {
+    background-color: #ffffff;
+    color: #308a35;
+    animation: fadein .5s;
+}
+
+/* user registration */
 
 .user-registration-inputs {
     display: flex;

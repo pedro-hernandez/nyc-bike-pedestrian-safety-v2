@@ -28,11 +28,11 @@ class ZipCodeSelect extends Component {
         return (
             <div>
                 <form onSubmit = {this.handleSubmit}>
-                <label>
-                    Enter a valid, five-digit NYC zip code
-                    <input className="text-input" type="text" value = {this.state.value} onChange={this.handleChange} />
+                <label className="label">
+                    Enter a valid, five-digit NYC zip code: 
+                    <input className="zip-input" type="text" value = {this.state.value} onChange={this.handleChange} />
                 </label>
-                <button className="submit-button" type="Submit">Submit</button>
+                <button className="zip-submit-button" type="Submit">Submit</button>
                 </form>
 
             </div>

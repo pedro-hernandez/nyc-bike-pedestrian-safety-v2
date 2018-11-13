@@ -7,10 +7,6 @@ import ZipCodeSelect from '../ZipCodeSelect';
 import ZipView from '../ZipView';
 import { Link } from 'react-router-dom';
 
-// 50 most recent incidents from the NYC Open Data / NYPD Motor Vehicle Collisions API
-// const recentIncidents = 'https://data.cityofnewyork.us/resource/qiz3-axqb.json?$$app_token=vsw3d1IWA34wIGA56fGGb4DIc&$limit=50&$order=date%20DESC&$where=latitude%20IS%20NOT%20NULL';
-
-
 class LandingPageMap extends Component {
 
     constructor(props) {
@@ -42,7 +38,6 @@ class LandingPageMap extends Component {
     }
 
     fetchRecentIncidents = () => {
-        // console.log(this.props.recentIncidents);
         // collects incident data from API
         fetch(this.props.recentIncidents)
             .then(response => response.json())
@@ -154,8 +149,6 @@ class LandingPageMap extends Component {
         this.setState(prevState => ({
             mappedIncidents: incidents
         }));
-
-        // this.centerMap();
     }
 
     onLogout = () => {
@@ -222,28 +215,6 @@ class LandingPageMap extends Component {
         );
     }
 
-    // centerMap = () => {
-    //     const latArray = this.state.incidents.map(a => a.location.coordinates[1]);
-    //     const lngArray = this.state.incidents.map(a => a.location.coordinates[0]);
-    //     const avgArray = array => array.reduce((a, b) => a + b, 0) / array.length;
-    //     let latAvg = parseFloat(avgArray(latArray));
-    //     let lngAvg = parseFloat(avgArray(lngArray));
-    //     console.log(latAvg);
-    //     console.log(lngAvg);
-    //     const viewport = {
-    //         width: 896,
-    //         height: 552,
-    //         latitude: latAvg,
-    //         longitude: lngAvg,
-    //         zoom: 14,
-    //         pitch: 50,
-    //     }
-
-    //     this.setState({
-    //         viewport: { ...viewport }
-    //     });
-    // }
-
     render = () => {
         // console.log(this.props.selectedZip);
         const { viewport } = this.state;
@@ -267,31 +238,33 @@ class LandingPageMap extends Component {
                 </header>
                 <main className="main">
                     <div className="main-map">
-                    {(this.props.selectedZip === 0) ?    
-                        <div>
-                        <h2 className="h2">50 Most Recent Accidents in NYC</h2>
-                        <ReactMapGL className="map-large"
-                            {...viewport}
-                            onViewportChange={(viewport) => this.setState({ viewport })}
-                            mapStyle="mapbox://styles/mapbox/dark-v9"
-                            mapboxApiAccessToken={this.props.mapboxToken}>
-                            {incidents.map(this._renderMarker)}
-                            {this._renderPopup()}
-                        </ReactMapGL>
-                        ...or view accidents in your neighborhood.
+                        {(this.props.selectedZip === 0) ?
+                            <div>
+                                <h2 className="h2">50 Most Recent Accidents in NYC</h2>
+                                <ReactMapGL className="map-large"
+                                    {...viewport}
+                                    onViewportChange={(viewport) => this.setState({ viewport })}
+                                    mapStyle="mapbox://styles/mapbox/dark-v9"
+                                    mapboxApiAccessToken={this.props.mapboxToken}>
+                                    {incidents.map(this._renderMarker)}
+                                    {this._renderPopup()}
+                                </ReactMapGL>
+                                ...or view accidents in your neighborhood.
                         <ZipCodeSelect zipInfo={this.props.zipInfo} />
-                        </div>
-                        : 
-                        <div>
-                        <h2 className="h2">50 Most Recent Accidents in {this.props.selectedZip}</h2>
-                        <ZipView recentIncidents={this.props.recentIncidents}
-                        mapboxToken={this.props.mapboxToken} 
-                        _renderMarker={this._renderMarker}
-                        _renderPopup={this._renderPopup}
-                        />
-                        </div>
-                    }
-                        </div>
+                            </div>
+                            :
+                            <div>
+                                <h2 className="h2">50 Most Recent Accidents in {this.props.selectedZip}</h2>
+                                <ZipView recentIncidents={this.props.recentIncidents}
+                                    mapboxToken={this.props.mapboxToken}
+                                    _renderMarker={this._renderMarker}
+                                    _renderPopup={this._renderPopup}
+                                />
+                                ...or view accidents in another neighborhood.
+                        <ZipCodeSelect zipInfo={this.props.zipInfo} />
+                            </div>
+                        }
+                    </div>
                 </main>
                 <UserBookmarks
                     user={this.state.user}

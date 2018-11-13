@@ -49,23 +49,12 @@ class App extends Component {
     });
   }
 
-  // fetchRecentIncidents = async () => {
-  //   // collects incident data from API
-  //   fetch(this.state.recentIncidents)
-  //     .then(response => response.json())
-  //     .then(incidents => {
-  //       this.setState({
-  //         incidents: incidents
-  //       });
-  //     });
-  // }
-
   zipInfo = (selectedZip) => {
 
     const nypdApi = `https://data.cityofnewyork.us/resource/qiz3-axqb.json?$$app_token=vsw3d1IWA34wIGA56fGGb4DIc&$limit=50&zip_code=${selectedZip}&$order=date%20DESC&$offset=0&$where=location%20IS%20NOT%20NULL`;
 
     this.setState({
-      selectedZip: parseInt(selectedZip),
+      selectedZip: selectedZip,
       recentIncidents: nypdApi,
     });
   }

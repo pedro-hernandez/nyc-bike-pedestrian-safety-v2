@@ -22,48 +22,26 @@ class ZipView extends Component {
         };
     }
 
-    componentDidMount = () => {
+    componentWillMount = () => {
         this.fetchRecentIncidents();
     }
 
-    // componentDidUpdate = () => {
-    //     this.props.recentIncidents;
-    //     this.fetchRecentIncidents();
-    // }
+    componentDidUpdate = (prevProps) => {
+        if (this.props.recentIncidents !== prevProps.recentIncidents){
+        this.fetchRecentIncidents();
+        };
+    }
 
     fetchRecentIncidents = () => {
-
-        console.log(this.props.recentIncidents)
-
         // collects incident data from API
         fetch(this.props.recentIncidents)
             .then(response => response.json())
             .then(incidents => {
-                // console.log(incidents);
                 this.setState({
                     incidents: [...incidents]
                 });
             })
             .then(this.centerMap);
-
-
-        // const latArray = this.state.incidents.map(a => a.location.coordinates[1]);
-        // const lngArray = this.state.incidents.map(a => a.location.coordinates[0]);
-        // const avgArray = array => array.reduce((a, b) => a + b, 0) / array.length;
-        // let latAvg = parseFloat(avgArray(latArray));
-        // let lngAvg = parseFloat(avgArray(lngArray));
-        // console.log(latAvg);
-        // console.log(lngAvg);
-        // const viewport = {
-        //     latitude: latAvg,
-        //     longitude: lngAvg,
-        //     zoom: 14,
-        //     pitch: 50,
-        // }
-
-        // this.setState({
-        //     viewport: { ...viewport }
-        // });
     }
 
     centerMap = () => {
