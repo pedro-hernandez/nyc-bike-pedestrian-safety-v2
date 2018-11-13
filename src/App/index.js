@@ -21,10 +21,13 @@ class App extends Component {
 
   componentDidMount = () => {
     const token = localStorage.getItem("user-jwt");
+    console.log(token);
     if (token) {
-      this.setState({
-        isLoggedIn: true,
-      });
+      this.onLogin;
+      // this.setState({
+      //   isLoggedIn: true,
+      // });
+      // console.log(this.state.isLoggedIn);
     }
   }
 
@@ -36,17 +39,18 @@ class App extends Component {
   }
 
   onLogin = () => {
-    this.setState({
-      isLoggedIn: true,
-    });
+    this.setState(prevState => ({
+      isLoggedIn: !prevState.isLoggedIn,
+    }));
+    console.log(this.state.isLoggedIn);
   }
 
   onLogout = () => {
     localStorage.clear();
 
-    this.setState({
-      isLoggedIn: false,
-    });
+    this.setState(prevState => ({
+      isLoggedIn: !prevState.isLoggedIn,
+    }));
   }
 
   zipInfo = (selectedZip) => {
@@ -60,12 +64,12 @@ class App extends Component {
   }
 
   render() {
-    console.log(this.state.recentIncidents);
-    console.log(this.state.selectedZip);
+    // console.log(this.state.recentIncidents);
+    // console.log(this.state.selectedZip);
     return <div>
-      <Router>
+      < Router >
         <div>
-          {!this.state.isLoggedIn ?
+          {(this.state.isLoggedIn === false) ?
             <Route
               path="/"
               render={props =>
@@ -79,7 +83,7 @@ class App extends Component {
                 </div>
               }
             />
-            : this.state.isLoggedIn ?
+            : (this.state.isLoggedIn === true) ?
               <Route
                 path="/home"
                 render={props =>
@@ -95,12 +99,12 @@ class App extends Component {
                     fetchBookmarks={this.fetchBookmarks}
                     mappedIncidents={this.state.mappedIncidents}
                     recentIncidents={this.state.recentIncidents}
-                    zipInfo={this.zipInfo} 
-                    selectedZip={this.state.selectedZip}/>
+                    zipInfo={this.zipInfo}
+                    selectedZip={this.state.selectedZip} />
                 } /> : null}
         </div>
-      </Router>
-    </div>
+      </Router >
+    </div >
   }
 }
 
