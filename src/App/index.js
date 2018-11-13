@@ -13,7 +13,7 @@ class App extends Component {
       username: '',
       password: '',
       isLoggedIn: false,
-      zip: '',
+      selectedZip: 0,
       mapboxToken: "pk.eyJ1IjoicGhlcm4iLCJhIjoiY2psc2JlN3lnMDBiaTNwcGhyaWlpa2VldCJ9.665bVWc7nQRX882OxrIaNg",
       recentIncidents: "https://data.cityofnewyork.us/resource/qiz3-axqb.json?$$app_token=vsw3d1IWA34wIGA56fGGb4DIc&$limit=50&$order=date%20DESC&$where=latitude%20IS%20NOT%20NULL",
     }
@@ -60,18 +60,19 @@ class App extends Component {
   //     });
   // }
 
-  zipInfo = async (selectedZip) => {
+  zipInfo = (selectedZip) => {
 
     const nypdApi = `https://data.cityofnewyork.us/resource/qiz3-axqb.json?$$app_token=vsw3d1IWA34wIGA56fGGb4DIc&$limit=50&zip_code=${selectedZip}&$order=date%20DESC&$offset=0&$where=location%20IS%20NOT%20NULL`;
 
-    console.log(nypdApi)
-
     this.setState({
+      selectedZip: parseInt(selectedZip),
       recentIncidents: nypdApi,
     });
   }
 
   render() {
+    console.log(this.state.recentIncidents);
+    console.log(this.state.selectedZip);
     return <div>
       <Router>
         <div>
@@ -105,8 +106,8 @@ class App extends Component {
                     fetchBookmarks={this.fetchBookmarks}
                     mappedIncidents={this.state.mappedIncidents}
                     recentIncidents={this.state.recentIncidents}
-                    fetchRecentIncidents={this.fetchRecentIncidents}
-                    zipInfo={this.zipInfo} />
+                    zipInfo={this.zipInfo} 
+                    selectedZip={this.state.selectedZip}/>
                 } /> : null}
         </div>
       </Router>

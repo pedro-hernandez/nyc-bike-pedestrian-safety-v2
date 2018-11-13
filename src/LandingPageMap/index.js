@@ -4,6 +4,7 @@ import MarkerPin from '../MarkerPin';
 import BookmarkButton from '../BookmarkButton';
 import UserBookmarks from '../UserBookmarks'
 import ZipCodeSelect from '../ZipCodeSelect';
+import ZipView from '../ZipView';
 import { Link } from 'react-router-dom';
 
 // 50 most recent incidents from the NYC Open Data / NYPD Motor Vehicle Collisions API
@@ -40,13 +41,14 @@ class LandingPageMap extends Component {
         this.fetchRecentIncidents();
     }
 
-    fetchRecentIncidents = async () => {
+    fetchRecentIncidents = () => {
+        // console.log(this.props.recentIncidents);
         // collects incident data from API
         fetch(this.props.recentIncidents)
             .then(response => response.json())
             .then(incidents => {
                 this.setState({
-                    incidents: incidents
+                    incidents: [...incidents]
                 });
             });
     }
@@ -75,6 +77,7 @@ class LandingPageMap extends Component {
                 'jwt-token': localStorage.getItem('user-jwt')
             }
         });
+
         await this.fetchUser();
 
         const incidentData = {
@@ -93,6 +96,7 @@ class LandingPageMap extends Component {
             totalInjured: popupInfo.number_of_persons_injured,
             totalKilled: popupInfo.number_of_persons_killed
         }
+
         await fetch(`/api/create-incident/`, {
             method: 'POST',
             body: JSON.stringify(incidentData),
@@ -101,6 +105,7 @@ class LandingPageMap extends Component {
                 'jwt-token': localStorage.getItem('user-jwt')
             }
         });
+
         this.fetchBookmarks();
     }
 
@@ -115,6 +120,7 @@ class LandingPageMap extends Component {
                 'jwt-token': localStorage.getItem('user-jwt')
             }
         });
+
         await this.fetchUser();
 
         this.setState(prevState => ({
@@ -132,8 +138,8 @@ class LandingPageMap extends Component {
                 'jwt-token': localStorage.getItem('user-jwt')
             }
         });
-        this.fetchBookmarks();
 
+        this.fetchBookmarks();
     }
 
     fetchBookmarks = async () => {
@@ -148,6 +154,8 @@ class LandingPageMap extends Component {
         this.setState(prevState => ({
             mappedIncidents: incidents
         }));
+
+        // this.centerMap();
     }
 
     onLogout = () => {
@@ -214,8 +222,30 @@ class LandingPageMap extends Component {
         );
     }
 
+    // centerMap = () => {
+    //     const latArray = this.state.incidents.map(a => a.location.coordinates[1]);
+    //     const lngArray = this.state.incidents.map(a => a.location.coordinates[0]);
+    //     const avgArray = array => array.reduce((a, b) => a + b, 0) / array.length;
+    //     let latAvg = parseFloat(avgArray(latArray));
+    //     let lngAvg = parseFloat(avgArray(lngArray));
+    //     console.log(latAvg);
+    //     console.log(lngAvg);
+    //     const viewport = {
+    //         width: 896,
+    //         height: 552,
+    //         latitude: latAvg,
+    //         longitude: lngAvg,
+    //         zoom: 14,
+    //         pitch: 50,
+    //     }
+
+    //     this.setState({
+    //         viewport: { ...viewport }
+    //     });
+    // }
 
     render = () => {
+        // console.log(this.props.selectedZip);
         const { viewport } = this.state;
         const incidents = this.state.incidents;
         return (
@@ -237,6 +267,8 @@ class LandingPageMap extends Component {
                 </header>
                 <main className="main">
                     <div className="main-map">
+                    {(this.props.selectedZip === 0) ?    
+                        <div>
                         <h2 className="h2">50 Most Recent Accidents in NYC</h2>
                         <ReactMapGL className="map-large"
                             {...viewport}
@@ -247,8 +279,19 @@ class LandingPageMap extends Component {
                             {this._renderPopup()}
                         </ReactMapGL>
                         ...or view accidents in your neighborhood.
-                        <ZipCodeSelect zipInfo={this.props.zipInfo}/>
-                    </div>
+                        <ZipCodeSelect zipInfo={this.props.zipInfo} />
+                        </div>
+                        : 
+                        <div>
+                        <h2 className="h2">50 Most Recent Accidents in {this.props.selectedZip}</h2>
+                        <ZipView recentIncidents={this.props.recentIncidents}
+                        mapboxToken={this.props.mapboxToken} 
+                        _renderMarker={this._renderMarker}
+                        _renderPopup={this._renderPopup}
+                        />
+                        </div>
+                    }
+                        </div>
                 </main>
                 <UserBookmarks
                     user={this.state.user}
@@ -257,6 +300,7 @@ class LandingPageMap extends Component {
                     removeBookmark={this.removeBookmark}
                     popupInfo={this.state.popupInfo}
                     fetchBookmarks={this.fetchBookmarks}
+                    fetchRecentIncidents={this.fetchRecentIncidents}
                     mappedIncidents={this.state.mappedIncidents} />
             </div>
         );
