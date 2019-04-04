@@ -1,6 +1,10 @@
 {
   "name": "full-stack-boiler-plate",
   "version": "0.1.0",
+  "engines": {
+    "node": "10.7.0",
+    "npm": "6.7.0"
+  },
   "private": true,
   "proxy": "http://localhost:5678",
   "dependencies": {
