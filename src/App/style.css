@@ -7,10 +7,24 @@
 https://www.pexels.com/photo/aerial-view-and-grayscale-photography-of-high-rise-buildings-1105766/ */
 
 body {
-    background-image: url("/img/35mm-aerial-analog-1105766.jpg");
+    /* background-image: url("/img/35mm-aerial-analog-1105766.jpg");
     background-repeat: no-repeat;
     background-attachment: fixed;
+    background-size: cover; */
+}
+
+body::after {
+    content: "";
+    background: url("/img/35mm-aerial-analog-1105766.jpg");
+    opacity: 0.4;
+    background-repeat: no-repeat;
     background-size: cover;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    z-index: -1;   
 }
 
 .h1 {

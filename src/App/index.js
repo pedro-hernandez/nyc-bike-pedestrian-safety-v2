@@ -64,8 +64,6 @@ class App extends Component {
   }
 
   render() {
-    // console.log(this.state.recentIncidents);
-    // console.log(this.state.selectedZip);
     return <div>
       < Router >
         <div>
