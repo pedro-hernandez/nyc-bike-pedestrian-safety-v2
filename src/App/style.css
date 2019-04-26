@@ -1,17 +1,10 @@
-* {
+body {
     padding: 0;
     margin: 0;
 }
 
 /* background image credit: Pexels / Photographer Tatiana Fet
 https://www.pexels.com/photo/aerial-view-and-grayscale-photography-of-high-rise-buildings-1105766/ */
-
-body {
-    /* background-image: url("/img/35mm-aerial-analog-1105766.jpg");
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-size: cover; */
-}
 
 body::after {
     content: "";
@@ -24,7 +17,7 @@ body::after {
     left: 0;
     bottom: 0;
     right: 0;
-    z-index: -1;   
+    z-index: -1;
 }
 
 .h1 {
@@ -324,7 +317,7 @@ body::after {
 .bookmarks-button:hover {
     background-color: #ffffff;
     color: #308a35;
-    animation: fadein .5s;   
+    animation: fadein .5s;
 }
 
 .bookmarks-list {
@@ -344,6 +337,7 @@ body::after {
     margin: 12px 0;
     animation: fadein 1s;
     animation: fadeout .5s;
+    box-shadow: 0 5px 6px 0 rgba(0, 0, 0, 0.2), 0 5px 15px 0 rgba(0, 0, 0, 0.2);
 }
 
 .incident-trailing {
