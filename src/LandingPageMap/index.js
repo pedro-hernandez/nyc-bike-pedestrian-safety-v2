@@ -216,7 +216,6 @@ class LandingPageMap extends Component {
     }
 
     render = () => {
-        // console.log(this.props.selectedZip);
         const { viewport } = this.state;
         const incidents = this.state.incidents;
         return (
@@ -249,7 +248,6 @@ class LandingPageMap extends Component {
                                     {incidents.map(this._renderMarker)}
                                     {this._renderPopup()}
                                 </ReactMapGL>
-                                ...or view accidents in your neighborhood.
                         <ZipCodeSelect zipInfo={this.props.zipInfo} />
                             </div>
                             :

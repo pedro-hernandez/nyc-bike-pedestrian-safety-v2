@@ -26,10 +26,10 @@ class ZipCodeSelect extends Component {
     render() {
         // zip code input field
         return (
-            <div>
+            <div className="zip-form">
                 <form onSubmit = {this.handleSubmit}>
                 <label className="label">
-                    Enter a valid, five-digit NYC zip code: 
+                    Enter a valid, five-digit NYC zip code:
                     <input className="zip-input" type="text" value = {this.state.value} onChange={this.handleChange} />
                 </label>
                 <button className="zip-submit-button" type="Submit">Submit</button>
