@@ -57,14 +57,8 @@ body::after {
 
 .h2 {
     font-family: 'Titillium Web', sans-serif;
-    color: #fff568;
-    /* text-shadow: https://wpshout.com/quick-guides/create-text-outline-css/ */
-    text-shadow:
-		-1px -1px 0 #000000,
-		1px -1px 0 #000000,
-		-1px 1px 0 #000000,
-        1px 2px 3px #000000;
-    margin: 10px 0;
+    font-weight: 600;
+    color: #222222;
 }
 
 .main {
@@ -80,14 +74,8 @@ body::after {
 .label {
     font-family: 'Titillium Web', sans-serif;
     font-size: 20px;
-    color: #fff568;
-    /* text-shadow: https://wpshout.com/quick-guides/create-text-outline-css/ */
-    text-shadow:
-		-1px -1px 0 #000000,
-		1px -1px 0 #000000,
-		-1px 1px 0 #000000,
-        1px 2px 3px #000000;
-    margin: 10px 0;
+    font-weight: 600;
+    color: #222222;
 }
 
 .zip-input {

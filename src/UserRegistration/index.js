@@ -78,6 +78,7 @@ class UserRegistration extends Component {
                 <main className="main">
                     <form onSubmit={this.onFormSubmit}>
                         <h2 className="h2">Log in to view your bookmarked accidents. Not a member? Register below!</h2>
+                        <h2 className="h2">Demo user authentication - User: 1, Password: 1</h2>
                         <div className="user-registration-inputs">
                             <input className="user-registration-input" type="text" name="username" placeholder="username" onChange={this.handleChange} />
                             <input className="user-registration-input" type="password" name="password" placeholder="password" onChange={this.handleChange} />
