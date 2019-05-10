@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ReactMapGL, { Marker, Popup } from 'react-map-gl';
 import MarkerPin from '../MarkerPin';
+import moment from 'moment'
 import BookmarkButton from '../BookmarkButton';
 import UserBookmarks from '../UserBookmarks'
 import ZipCodeSelect from '../ZipCodeSelect';
@@ -199,6 +200,8 @@ class LandingPageMap extends Component {
                 captureClick={true}
                 onClose={() => this.setState({ popupInfo: null })}>
                 <div className="popup-container">
+                    {`Date: ${moment(popupInfo.date).format("dddd, MMMM Do YYYY")}`}
+                    <br />
                     {`People injured: ${popupInfo.number_of_persons_injured}`}
                     <br />
                     {`People killed: ${popupInfo.number_of_persons_killed}`}
