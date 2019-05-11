@@ -272,7 +272,6 @@ body::after {
 }
 
 .map-large {
-    border: 2px solid #ffffff;
     border-radius: 10px;
     box-shadow: 0 5px 6px 0 rgba(0, 0, 0, 0.2), 0 5px 15px 0 rgba(0, 0, 0, 0.2);
 }
@@ -333,7 +332,6 @@ body::after {
     background-color: #ffffff;
     font-family: 'Titillium Web', sans-serif;
     font-size: 14px;
-    border: 1px solid #000000;
     border-radius: 6px;
     margin: 12px 0;
     animation: fadein 1s;
