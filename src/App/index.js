@@ -4,6 +4,9 @@ import LandingPageMap from "../LandingPageMap";
 import UserRegistration from "../UserRegistration";
 import "./style.css";
 
+const mapboxAPI = process.env.REACT_APP_MAPBOX_TOKEN;
+const nycOpenAPI = process.env.REACT_APP_NYC_APP_TOKEN;
+
 class App extends Component {
 
   constructor(props) {
@@ -14,8 +17,8 @@ class App extends Component {
       password: '',
       isLoggedIn: false,
       selectedZip: 0,
-      mapboxToken: `${process.env.REACT_APP_MAPBOX_TOKEN}`,
-      recentIncidents: `https://data.cityofnewyork.us/resource/qiz3-axqb.json?$$app_token=${process.env.REACT_APP_NYC_APP_TOKEN}&$limit=50&$order=date%20DESC&$where=latitude%20IS%20NOT%20NULL`,
+      mapboxToken: mapboxAPI,
+      recentIncidents: `https://data.cityofnewyork.us/resource/qiz3-axqb.json?$$app_token=${nycOpenAPI}&$limit=50&$order=date%20DESC&$where=latitude%20IS%20NOT%20NULL`,
     }
   }
 
@@ -51,7 +54,7 @@ class App extends Component {
 
   zipInfo = (selectedZip) => {
 
-    const nypdApi = `https://data.cityofnewyork.us/resource/qiz3-axqb.json?$$app_token=${process.env.REACT_APP_NYC_APP_TOKEN}&$limit=50&zip_code=${selectedZip}&$order=date%20DESC&$offset=0&$where=location%20IS%20NOT%20NULL`;
+    const nypdApi = `https://data.cityofnewyork.us/resource/qiz3-axqb.json?$$app_token=${nycOpenAPI}&$limit=50&zip_code=${selectedZip}&$order=date%20DESC&$offset=0&$where=location%20IS%20NOT%20NULL`;
 
     this.setState({
       selectedZip: selectedZip,
