@@ -24,10 +24,6 @@ class App extends Component {
     console.log(token);
     if (token) {
       this.onLogin;
-      // this.setState({
-      //   isLoggedIn: true,
-      // });
-      // console.log(this.state.isLoggedIn);
     }
   }
 
