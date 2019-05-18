@@ -14,8 +14,8 @@ class App extends Component {
       password: '',
       isLoggedIn: false,
       selectedZip: 0,
-      mapboxToken: "pk.eyJ1IjoicGhlcm4iLCJhIjoiY2psc2JlN3lnMDBiaTNwcGhyaWlpa2VldCJ9.665bVWc7nQRX882OxrIaNg",
-      recentIncidents: "https://data.cityofnewyork.us/resource/qiz3-axqb.json?$$app_token=vsw3d1IWA34wIGA56fGGb4DIc&$limit=50&$order=date%20DESC&$where=latitude%20IS%20NOT%20NULL",
+      mapboxToken: `${process.env.REACT_APP_MAPBOX_TOKEN}`,
+      recentIncidents: `https://data.cityofnewyork.us/resource/qiz3-axqb.json?$$app_token=${process.env.REACT_APP_NYC_APP_TOKEN}&$limit=50&$order=date%20DESC&$where=latitude%20IS%20NOT%20NULL`,
     }
   }
 
@@ -55,7 +55,7 @@ class App extends Component {
 
   zipInfo = (selectedZip) => {
 
-    const nypdApi = `https://data.cityofnewyork.us/resource/qiz3-axqb.json?$$app_token=vsw3d1IWA34wIGA56fGGb4DIc&$limit=50&zip_code=${selectedZip}&$order=date%20DESC&$offset=0&$where=location%20IS%20NOT%20NULL`;
+    const nypdApi = `https://data.cityofnewyork.us/resource/qiz3-axqb.json?$$app_token=${process.env.REACT_APP_NYC_APP_TOKEN}&$limit=50&zip_code=${selectedZip}&$order=date%20DESC&$offset=0&$where=location%20IS%20NOT%20NULL`;
 
     this.setState({
       selectedZip: selectedZip,
