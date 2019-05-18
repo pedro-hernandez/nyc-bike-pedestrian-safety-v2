@@ -1,3 +1,10 @@
+# NYC Bike and Pedestrian Safety
+
+- React
+- Express
+- PostgreSQL
+- Sequelize
+
 # Full stack app boilerplate
 
 This is boilerplate for a full-stack app.
