@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import ReactMapGL, { Marker } from 'react-map-gl';
+import ReactMapGL, { Marker, StaticMap } from 'react-map-gl';
 import MarkerPin from '../MarkerPin';
 
 // base, per-incident  mapping component for informational views and user bookmarks
@@ -13,13 +13,14 @@ class Map extends Component {
             longitude: parseFloat(this.props.longitude),
             zoom: 16,
             pitch: 45,
+            preserveDrawingBuffer: true, // Needed to allow export as png
         }
     };
 
     render() {
         return (
             <div className="map">
-                <ReactMapGL
+                <StaticMap
                     {...this.state.viewport}
                     mapStyle="mapbox://styles/mapbox/streets-v9"
                     onViewportChange={(viewport) => this.setState({ viewport })}
@@ -27,7 +28,7 @@ class Map extends Component {
                     <Marker latitude={parseFloat(this.props.latitude)} longitude={parseFloat(this.props.longitude)}>
                         <MarkerPin size={20} />
                     </Marker>
-                </ReactMapGL>
+                </StaticMap>
             </div>
         );
     }

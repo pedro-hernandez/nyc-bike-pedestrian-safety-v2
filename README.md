@@ -4,6 +4,8 @@
 - Express
 - PostgreSQL
 - Sequelize
+- NYC Open Data API
+- Mapbox API
 
 # Full stack app boilerplate
 
