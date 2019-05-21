@@ -75,7 +75,7 @@ class ZipView extends Component {
                 <ReactMapGL className="map-large"
                     {...viewport}
                     onViewportChange={(viewport) => this.setState({ viewport })}
-                    mapStyle="mapbox://styles/mapbox/dark-v9"
+                    mapStyle="mapbox://styles/mapbox/streets-v10"
                     mapboxApiAccessToken={this.props.mapboxToken}>
                     {incidents.map(this.props._renderMarker)}
                     {this.props._renderPopup()}
