@@ -12,7 +12,8 @@ it('renders without crashing', () => {
     ReactDOM.render(<App />, div);
 });
 
-// shallow rendering example
+// shallow rendering examples
+// https://facebook.github.io/create-react-app/docs/running-tests
 
 it('renders without crashing', () => {
     shallow(<App />);
