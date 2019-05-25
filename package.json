@@ -12,6 +12,8 @@
     "bcrypt": "^3.0.6",
     "body-parser": "^1.19.0",
     "concurrently": "^4.0.1",
+    "enzyme": "^3.9.0",
+    "enzyme-adapter-react-16": "^1.13.1",
     "express": "^4.16.3",
     "jsonwebtoken": "^8.3.0",
     "moment": "^2.22.2",
@@ -22,6 +24,7 @@
     "react-map-gl": "^3.3.7",
     "react-router-dom": "^4.3.1",
     "react-scripts": "1.1.5",
+    "react-test-renderer": "^16.8.6",
     "sequelize": "^5.8.6"
   },
   "scripts": {
@@ -32,5 +35,8 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "db": "psql -f createDb.sql && node resetDb.js && node seed.js"
+  },
+  "devDependencies": {
+    "jest-localstorage-mock": "^2.4.0"
   }
 }
