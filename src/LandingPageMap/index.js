@@ -42,7 +42,9 @@ class LandingPageMap extends Component {
         // collects incident data from API
         fetch(this.props.recentIncidents)
             .then(response => response.json())
-            .then(incidents => {
+            .then(incidents =>
+                // console.log(incidents))
+                {
                 this.setState({
                     incidents: [...incidents]
                 });
@@ -169,7 +171,7 @@ class LandingPageMap extends Component {
     }
 
     _renderMarker = (incident, index) => {
-        console.log(incident.latitude);
+        // console.log(incident.latitude);
         const lat = parseFloat(incident.latitude);
         const lng = parseFloat(incident.longitude);
 

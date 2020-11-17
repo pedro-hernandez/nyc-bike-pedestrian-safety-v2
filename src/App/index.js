@@ -20,7 +20,7 @@ class App extends Component {
       isLoggedIn: false,
       selectedZip: 0,
       mapboxToken: mapboxAPI,
-      recentIncidents: 'https://data.cityofnewyork.us/resource/h9gi-nx95.json?$limit=50',
+      recentIncidents: `https://data.cityofnewyork.us/resource/h9gi-nx95.json?$$app_token=${nycOpenAPI}&$limit=50&$order=crash_date%20DESC&$offset=0&$where=location%20IS%20NOT%20NULL`,
     }
   }
 
@@ -57,7 +57,7 @@ class App extends Component {
   zipInfo = (selectedZip) => {
 
     const nypdApi = `https://data.cityofnewyork.us/resource/h9gi-nx95.json?$$app_token=${nycOpenAPI}&$limit=50&zip_code=${selectedZip}&$order=crash_date%20DESC&$offset=0&$where=location%20IS%20NOT%20NULL`;
-    
+
     this.setState({
       selectedZip: selectedZip,
       recentIncidents: nypdApi,
@@ -65,6 +65,7 @@ class App extends Component {
   }
 
   render() {
+    // console.log(this.state.recentIncidents)
     return <div>
       < Router >
         <div>
