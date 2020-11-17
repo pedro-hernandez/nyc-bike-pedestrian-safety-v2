@@ -169,8 +169,9 @@ class LandingPageMap extends Component {
     }
 
     _renderMarker = (incident, index) => {
-        const lat = parseFloat(incident.location.coordinates[1]);
-        const lng = parseFloat(incident.location.coordinates[0]);
+        console.log(incident.latitude);
+        const lat = parseFloat(incident.latitude);
+        const lng = parseFloat(incident.longitude);
 
         return (
             <Marker key={index}

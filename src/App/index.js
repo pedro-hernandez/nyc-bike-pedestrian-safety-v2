@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import React, { Component } from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import LandingPageMap from "../LandingPageMap";
@@ -18,7 +20,7 @@ class App extends Component {
       isLoggedIn: false,
       selectedZip: 0,
       mapboxToken: mapboxAPI,
-      recentIncidents: `https://data.cityofnewyork.us/resource/qiz3-axqb.json?$$app_token=${nycOpenAPI}&$limit=50&$order=date%20DESC&$where=latitude%20IS%20NOT%20NULL`,
+      recentIncidents: 'https://data.cityofnewyork.us/resource/h9gi-nx95.json?$limit=50',
     }
   }
 
@@ -54,8 +56,8 @@ class App extends Component {
 
   zipInfo = (selectedZip) => {
 
-    const nypdApi = `https://data.cityofnewyork.us/resource/qiz3-axqb.json?$$app_token=${nycOpenAPI}&$limit=50&zip_code=${selectedZip}&$order=date%20DESC&$offset=0&$where=location%20IS%20NOT%20NULL`;
-
+    const nypdApi = `https://data.cityofnewyork.us/resource/h9gi-nx95.json?$$app_token=${nycOpenAPI}&$limit=50&zip_code=${selectedZip}&$order=crash_date%20DESC&$offset=0&$where=location%20IS%20NOT%20NULL`;
+    
     this.setState({
       selectedZip: selectedZip,
       recentIncidents: nypdApi,
