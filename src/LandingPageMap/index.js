@@ -79,9 +79,9 @@ class LandingPageMap extends Component {
         await this.fetchUser();
 
         const incidentData = {
-            apiId: popupInfo.unique_key,
+            apiId: popupInfo.collision_id,
             borough: popupInfo.borough,
-            date: popupInfo.date,
+            date: popupInfo.crash_date,
             time: popupInfo.time,
             latitude: popupInfo.latitude,
             longitude: popupInfo.longitude,
@@ -203,7 +203,7 @@ class LandingPageMap extends Component {
                 captureClick={true}
                 onClose={() => this.setState({ popupInfo: null })}>
                 <div className="popup-container">
-                    {`Date: ${moment(popupInfo.date).format("dddd, MMMM Do YYYY")}`}
+                    {`Date: ${moment(popupInfo.crash_date).format("dddd, MMMM Do YYYY")}`}
                     <br />
                     {`People injured: ${popupInfo.number_of_persons_injured}`}
                     <br />
@@ -211,7 +211,7 @@ class LandingPageMap extends Component {
                 </div>
                 <BookmarkButton className="popup-button"
                     popupInfo={this.state.popupInfo}
-                    apiId={this.state.popupInfo.unique_key}
+                    apiId={this.state.popupInfo.collision_id}
                     bookmarks={this.state.bookmarks}
                     bookmarkIncident={this.bookmarkIncident}
                     removeBookmark={this.removeBookmark}
