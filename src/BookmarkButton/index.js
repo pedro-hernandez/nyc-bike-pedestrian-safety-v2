@@ -4,6 +4,7 @@ class BookmarkButton extends Component {
 
     bookmarkIncident = () => {
         this.props.bookmarkIncident(this.props.apiId, this.props.popupInfo);
+        console.log(this.props.popupInfo);
     }
 
     removeBookmark = () => {
@@ -11,7 +12,7 @@ class BookmarkButton extends Component {
     }
 
     render() {
-    
+
         return (
             <div className="map-button">
                 {(this.props.bookmarks === null || (!this.props.bookmarks.includes(parseInt(this.props.apiId)))) ?
